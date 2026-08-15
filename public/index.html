@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Vaughn Sports Academy | Road to Cooperstown</title>
+
+  <meta
+    name="description"
+    content="Support Vaughn Sports Academy on the Road to Cooperstown."
+  />
+
+  <style>
+    :root {
+      --navy-dark: #05070d;
+      --navy: #101722;
+      --navy-light: #1b2635;
+
+      --red: #d71920;
+      --red-dark: #8f0f14;
+
+      --white: #ffffff;
+      --silver: #d5d9df;
+      --muted: #9ea6b2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(215, 25, 32, 0.18),
+          transparent 35%
+        ),
+        linear-gradient(
+          180deg,
+          #111722 0%,
+          #05070d 100%
+        );
+    }
+
+    .page {
+      width: min(1240px, 94%);
+      margin: 0 auto;
+      padding: 30px 0 60px;
+    }
+
+    .hero {
+      text-align: center;
+      padding-bottom: 34px;
+    }
+
+    .logo {
+      display: block;
+      width: min(230px, 60vw);
+      height: auto;
+      margin: 0 auto 8px;
+
+      filter:
+        drop-shadow(
+          0 0 22px
+          rgba(215, 25, 32, 0.24)
+        );
+    }
+
+    .team-name {
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .hero-title {
+      margin: 16px 0 0;
+      font-style: italic;
+      font-weight: 1000;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-title .road {
+      display: block;
+      color: var(--white);
+      font-size: clamp(58px, 9vw, 112px);
+    }
+
+    .hero-title .coop {
+      display: block;
+      margin-top: 10px;
+      color: var(--red);
+      font-size: clamp(62px, 10vw, 126px);
+      transform: skewX(-6deg);
+
+      text-shadow:
+        4px 4px 0 var(--red-dark),
+        8px 8px 0 rgba(0, 0, 0, 0.65);
+    }
+
+    .hero-rule {
+      width: min(520px, 80%);
+      height: 3px;
+      margin: 24px auto 18px;
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--red),
+          transparent
+        );
+    }
+
+    .tagline {
+      margin: 0;
+      font-size: clamp(16px, 2vw, 21px);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      max-width: 780px;
+      margin: 18px auto 0;
+      color: var(--silver);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .intro strong {
+      color: var(--red);
+    }
+
+    .players-section {
+      margin-top: 38px;
+    }
+
+    .section-kicker {
+      text-align: center;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 8px 0 8px;
+      text-align: center;
+      font-size: clamp(30px, 5vw, 46px);
+      font-weight: 1000;
+      text-transform: uppercase;
+    }
+
+    .section-subtitle {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .player-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .player-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+
+      padding: 22px 18px;
+
+      border-radius: 16px;
+      border: 1px solid rgba(215, 25, 32, 0.28);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+
+      box-shadow:
+        0 16px 30px rgba(0, 0, 0, 0.28);
+
+      transition:
+        transform 0.16s ease,
+        border-color 0.16s ease,
+        box-shadow 0.16s ease;
+    }
+
+    .player-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(215, 25, 32, 0.8);
+
+      box-shadow:
+        0 20px 38px rgba(0, 0, 0, 0.36),
+        0 0 22px rgba(215, 25, 32, 0.12);
+    }
+
+    .player-number {
+      color: var(--red);
+      font-size: 28px;
+      font-weight: 1000;
+      margin-bottom: 7px;
+    }
+
+    .player-name {
+      color: var(--white);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .support-text {
+      margin-top: 12px;
+      color: var(--silver);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .shared-board-note {
+      margin: 34px auto 0;
+      max-width: 900px;
+      padding: 20px 22px;
+      text-align: center;
+
+      border-radius: 16px;
+      border: 1px solid rgba(215, 25, 32, 0.28);
+
+      background:
+        rgba(215, 25, 32, 0.06);
+    }
+
+    .shared-board-note strong {
+      color: var(--red);
+    }
+
+    .how {
+      margin-top: 56px;
+      padding: 28px;
+
+      border-radius: 20px;
+      border: 1px solid rgba(215, 25, 32, 0.20);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(24, 32, 45, 0.86),
+          rgba(5, 7, 13, 0.94)
+        );
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .how-card {
+      padding: 20px;
+      text-align: center;
+
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      background:
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 12px;
+
+      border-radius: 50%;
+      background: var(--red);
+
+      color: white;
+      font-size: 18px;
+      font-weight: 1000;
+    }
+
+    .how-card h3 {
+      margin: 0 0 8px;
+      color: var(--red);
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    .how-card p {
+      margin: 0;
+      color: var(--silver);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 46px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    footer strong {
+      color: var(--red);
+      letter-spacing: 0.14em;
+    }
+
+    @media (max-width: 960px) {
+      .player-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .player-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .player-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <section class="hero">
+
+      <img
+        src="/vsa-logo.png"
+        alt="Vaughn Sports Academy"
+        class="logo"
+      />
+
+      <div class="team-name">
+        Vaughn Sports Academy
+      </div>
+
+      <h1 class="hero-title">
+        <span class="road">
+          Road To
+        </span>
+
+        <span class="coop">
+          Cooperstown
+        </span>
+      </h1>
+
+      <div class="hero-rule"></div>
+
+      <p class="tagline">
+        One Team. One Board. One Goal.
+      </p>
+
+      <p class="intro">
+        Help support Vaughn Sports Academy on their Road to Cooperstown.
+        Choose the player you want to support below, then select from the team's
+        <strong>shared 100-baseball fundraiser board</strong>.
+      </p>
+
+    </section>
+
+
+    <section class="players-section">
+
+      <div class="section-kicker">
+        VSA Cooperstown Fundraiser
+      </div>
+
+      <h2 class="section-title">
+        Choose a Player to Support
+      </h2>
+
+      <p class="section-subtitle">
+        Every player uses the same shared baseball board.
+        Your contribution will still be credited to the player you choose.
+      </p>
+
+
+      <div class="player-grid">
+
+        <a class="player-card" href="/fundraiser?player=cj-tompkins">
+          <div class="player-number">#16</div>
+          <div class="player-name">CJ Tompkins</div>
+          <div class="support-text">Support CJ →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=boe-cannella">
+          <div class="player-number">#5</div>
+          <div class="player-name">Boe Cannella</div>
+          <div class="support-text">Support Boe →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=charlie-wasch">
+          <div class="player-number">#15</div>
+          <div class="player-name">Charlie Wasch</div>
+          <div class="support-text">Support Charlie →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=daniel-laud-hammond">
+          <div class="player-number">#27</div>
+          <div class="player-name">Daniel Laud-Hammond</div>
+          <div class="support-text">Support Daniel →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=elias-avila">
+          <div class="player-number">#11</div>
+          <div class="player-name">Elias Avila</div>
+          <div class="support-text">Support Elias →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=harrison-ruben">
+          <div class="player-number">#23</div>
+          <div class="player-name">Harrison Ruben</div>
+          <div class="support-text">Support Harrison →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=jace-comparato">
+          <div class="player-number">#33</div>
+          <div class="player-name">Jace Comparato</div>
+          <div class="support-text">Support Jace →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=jonas-urrego">
+          <div class="player-number">#13</div>
+          <div class="player-name">Jonas Urrego</div>
+          <div class="support-text">Support Jonas →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=julius-gonzalez">
+          <div class="player-number">#24</div>
+          <div class="player-name">Julius Gonzalez</div>
+          <div class="support-text">Support Julius →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=luke-garcia">
+          <div class="player-number">#2</div>
+          <div class="player-name">Luke Garcia</div>
+          <div class="support-text">Support Luke →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=patrick-mansfield">
+          <div class="player-number">#8</div>
+          <div class="player-name">Patrick Mansfield</div>
+          <div class="support-text">Support Patrick →</div>
+        </a>
+
+        <a class="player-card" href="/fundraiser?player=samuel-santiago">
+          <div class="player-number">#42</div>
+          <div class="player-name">Samuel Santiago</div>
+          <div class="support-text">Support Samuel →</div>
+        </a>
+
+      </div>
+
+
+      <div class="shared-board-note">
+        <strong>Shared Team Board:</strong>
+        all 12 VSA players draw from the same 100 available baseball numbers.
+        Once a baseball is purchased, it is no longer available for any player.
+      </div>
+
+    </section>
+
+
+    <section class="how">
+
+      <div class="section-kicker">
+        How It Works
+      </div>
+
+      <h2 class="section-title">
+        Support VSA
+      </h2>
+
+      <div class="how-grid">
+
+        <div class="how-card">
+          <div class="step">1</div>
+          <h3>Choose a Player</h3>
+          <p>
+            Select the VSA player you want your contribution credited toward.
+          </p>
+        </div>
+
+        <div class="how-card">
+          <div class="step">2</div>
+          <h3>Pick Baseballs</h3>
+          <p>
+            Choose one or more available numbers from the shared 100-ball board.
+          </p>
+        </div>
+
+        <div class="how-card">
+          <div class="step">3</div>
+          <h3>Checkout</h3>
+          <p>
+            Complete your contribution securely through Stripe Checkout.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      <strong>VAUGHN SPORTS ACADEMY</strong>
+      <br />
+      Road to Cooperstown
+    </footer>
+
+  </main>
+
+</body>
+</html>
