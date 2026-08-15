@@ -13,16 +13,22 @@
 
   <style>
     :root {
-      --navy-dark: #05070d;
-      --navy: #101722;
-      --navy-light: #1b2635;
+      --black: #070707;
+      --black-soft: #111111;
+      --black-light: #1a1a1a;
 
-      --red: #d71920;
-      --red-dark: #8f0f14;
+      --gold: #c7923e;
+      --gold-light: #e3b564;
+      --gold-dark: #8c6329;
 
       --white: #ffffff;
-      --silver: #d5d9df;
-      --muted: #9ea6b2;
+      --cream: #f7f1e6;
+      --silver: #d2d2d2;
+      --muted: #a7a7a7;
+
+      --baseball: #f7f3e9;
+      --baseball-shadow: #d5ccbc;
+      --stitch: #c92932;
     }
 
     * {
@@ -36,325 +42,659 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       color: var(--white);
 
       background:
         radial-gradient(
-          circle at 50% 0%,
-          rgba(215, 25, 32, 0.18),
-          transparent 35%
+          circle at 50% 5%,
+          rgba(199, 146, 62, 0.16),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 15% 40%,
+          rgba(199, 146, 62, 0.07),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 85% 42%,
+          rgba(199, 146, 62, 0.06),
+          transparent 28%
         ),
         linear-gradient(
           180deg,
-          #111722 0%,
-          #05070d 100%
+          #202020 0%,
+          #121212 34%,
+          #080808 100%
         );
     }
 
     .page {
-      width: min(1240px, 94%);
+      width: min(1320px, 94%);
       margin: 0 auto;
-      padding: 30px 0 60px;
+      padding: 28px 0 60px;
     }
+
+    /* =========================
+       HERO
+    ========================= */
 
     .hero {
       text-align: center;
-      padding-bottom: 34px;
+      padding: 0 0 36px;
     }
 
     .logo {
       display: block;
-      width: min(230px, 60vw);
+
+      width: min(300px, 72vw);
       height: auto;
-      margin: 0 auto 8px;
+
+      margin: 0 auto 12px;
 
       filter:
         drop-shadow(
-          0 0 22px
-          rgba(215, 25, 32, 0.24)
+          0 10px 18px
+          rgba(0, 0, 0, 0.45)
         );
     }
 
     .team-name {
-      color: var(--red);
+      margin-top: 4px;
+
+      color: var(--gold-light);
+
       font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 0.28em;
+      font-weight: 1000;
+
+      letter-spacing: 0.30em;
+
       text-transform: uppercase;
-      margin-top: 8px;
     }
 
     .hero-title {
-      margin: 16px 0 0;
+      margin: 18px 0 0;
+
+      line-height: 0.88;
+
       font-style: italic;
       font-weight: 1000;
-      line-height: 0.88;
-      letter-spacing: -0.04em;
+
       text-transform: uppercase;
     }
 
     .hero-title .road {
       display: block;
+
       color: var(--white);
-      font-size: clamp(58px, 9vw, 112px);
+
+      font-size:
+        clamp(
+          58px,
+          9vw,
+          118px
+        );
+
+      text-shadow:
+        5px 5px 0
+        rgba(0, 0, 0, 0.55);
     }
 
     .hero-title .coop {
       display: block;
+
       margin-top: 10px;
-      color: var(--red);
-      font-size: clamp(62px, 10vw, 126px);
+
+      color: var(--gold);
+
+      font-size:
+        clamp(
+          65px,
+          10vw,
+          132px
+        );
+
       transform: skewX(-6deg);
 
       text-shadow:
-        4px 4px 0 var(--red-dark),
-        8px 8px 0 rgba(0, 0, 0, 0.65);
+        4px 4px 0
+        var(--gold-dark),
+        8px 8px 0
+        rgba(0, 0, 0, 0.72);
     }
 
     .hero-rule {
-      width: min(520px, 80%);
+      width: min(560px, 82%);
       height: 3px;
-      margin: 24px auto 18px;
+
+      margin: 26px auto 18px;
+
       border-radius: 999px;
 
       background:
         linear-gradient(
           90deg,
           transparent,
-          var(--red),
+          var(--gold),
           transparent
         );
     }
 
     .tagline {
       margin: 0;
-      font-size: clamp(16px, 2vw, 21px);
-      font-weight: 900;
-      letter-spacing: 0.08em;
+
+      color: var(--white);
+
+      font-size:
+        clamp(
+          16px,
+          2vw,
+          21px
+        );
+
+      font-weight: 1000;
+
+      letter-spacing: 0.11em;
+
       text-transform: uppercase;
     }
 
     .intro {
-      max-width: 780px;
+      max-width: 800px;
+
       margin: 18px auto 0;
+
       color: var(--silver);
+
       font-size: 17px;
       line-height: 1.6;
     }
 
     .intro strong {
-      color: var(--red);
+      color: var(--gold-light);
     }
 
+    /* =========================
+       PLAYERS
+    ========================= */
+
     .players-section {
-      margin-top: 38px;
+      margin-top: 40px;
     }
 
     .section-kicker {
       text-align: center;
-      color: var(--red);
+
+      color: var(--gold);
+
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 1000;
+
       letter-spacing: 0.22em;
+
       text-transform: uppercase;
     }
 
     .section-title {
       margin: 8px 0 8px;
+
       text-align: center;
-      font-size: clamp(30px, 5vw, 46px);
+
+      color: var(--white);
+
+      font-size:
+        clamp(
+          30px,
+          5vw,
+          46px
+        );
+
       font-weight: 1000;
+
       text-transform: uppercase;
     }
 
     .section-subtitle {
       max-width: 760px;
-      margin: 0 auto 28px;
+
+      margin: 0 auto 32px;
+
       text-align: center;
+
       color: var(--muted);
-      line-height: 1.5;
+
+      font-size: 15px;
+
+      line-height: 1.55;
     }
+
+    /*
+      6 BASEBALLS ACROSS
+      12 PLAYERS = 2 ROWS OF 6
+    */
 
     .player-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
+
+      grid-template-columns:
+        repeat(6, 190px);
+
+      justify-content: center;
+
+      gap: 30px 20px;
     }
 
     .player-card {
-      display: block;
+      position: relative;
+
+      width: 190px;
+      height: 190px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      border-radius: 50%;
+
       text-decoration: none;
-      color: inherit;
 
-      padding: 22px 18px;
-
-      border-radius: 16px;
-      border: 1px solid rgba(215, 25, 32, 0.28);
+      border:
+        3px solid
+        rgba(255, 255, 255, 0.94);
 
       background:
-        linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.05),
-          rgba(255, 255, 255, 0.02)
+        radial-gradient(
+          circle at 34% 27%,
+          #ffffff 0%,
+          var(--baseball) 44%,
+          #e1d9ca 72%,
+          var(--baseball-shadow) 100%
         );
 
       box-shadow:
-        0 16px 30px rgba(0, 0, 0, 0.28);
+        0 17px 30px
+        rgba(0, 0, 0, 0.46),
+        0 0 0 4px
+        rgba(199, 146, 62, 0.16),
+        inset -8px -10px 15px
+        rgba(0, 0, 0, 0.12);
 
       transition:
         transform 0.16s ease,
-        border-color 0.16s ease,
         box-shadow 0.16s ease;
     }
 
     .player-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(215, 25, 32, 0.8);
+      transform:
+        translateY(-6px)
+        scale(1.035);
 
       box-shadow:
-        0 20px 38px rgba(0, 0, 0, 0.36),
-        0 0 22px rgba(215, 25, 32, 0.12);
+        0 24px 40px
+        rgba(0, 0, 0, 0.5),
+        0 0 0 5px
+        rgba(199, 146, 62, 0.34),
+        0 0 28px
+        rgba(199, 146, 62, 0.20);
+    }
+
+    /* BASEBALL STITCHING */
+
+    .player-card::before,
+    .player-card::after {
+      content: "";
+
+      position: absolute;
+
+      top: 9%;
+      bottom: 9%;
+
+      width: 34%;
+
+      border:
+        3px dashed
+        var(--stitch);
+
+      border-top: none;
+      border-bottom: none;
+
+      border-radius: 50%;
+
+      opacity: 0.62;
+
+      pointer-events: none;
+    }
+
+    .player-card::before {
+      left: 4%;
+    }
+
+    .player-card::after {
+      right: 4%;
+    }
+
+    .player-content {
+      position: relative;
+      z-index: 2;
+
+      width: 72%;
+
+      text-align: center;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
     }
 
     .player-number {
-      color: var(--red);
-      font-size: 28px;
+      margin-bottom: 6px;
+
+      color: var(--gold-dark);
+
+      font-size: 25px;
+
       font-weight: 1000;
-      margin-bottom: 7px;
+
+      text-shadow:
+        1px 1px 0
+        rgba(255, 255, 255, 0.8);
     }
 
     .player-name {
-      color: var(--white);
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 1.1;
+      color: #111111;
+
+      font-size: 18px;
+
+      font-weight: 1000;
+
+      line-height: 1.02;
+
       text-transform: uppercase;
     }
 
-    .support-text {
+    .support {
       margin-top: 12px;
-      color: var(--silver);
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
 
-    .shared-board-note {
-      margin: 34px auto 0;
-      max-width: 900px;
-      padding: 20px 22px;
-      text-align: center;
+      padding:
+        7px
+        10px;
 
-      border-radius: 16px;
-      border: 1px solid rgba(215, 25, 32, 0.28);
-
-      background:
-        rgba(215, 25, 32, 0.06);
-    }
-
-    .shared-board-note strong {
-      color: var(--red);
-    }
-
-    .how {
-      margin-top: 56px;
-      padding: 28px;
-
-      border-radius: 20px;
-      border: 1px solid rgba(215, 25, 32, 0.20);
+      border-radius: 999px;
 
       background:
         linear-gradient(
           180deg,
-          rgba(24, 32, 45, 0.86),
-          rgba(5, 7, 13, 0.94)
+          #272727,
+          #070707
+        );
+
+      color: var(--gold-light);
+
+      font-size: 8px;
+
+      font-weight: 1000;
+
+      letter-spacing: 0.03em;
+
+      text-transform: uppercase;
+
+      white-space: nowrap;
+    }
+
+    /* =========================
+       SHARED BOARD MESSAGE
+    ========================= */
+
+    .shared-note {
+      max-width: 900px;
+
+      margin: 40px auto 0;
+
+      padding: 20px 24px;
+
+      text-align: center;
+
+      color: var(--silver);
+
+      line-height: 1.6;
+
+      border-radius: 18px;
+
+      border:
+        1px solid
+        rgba(199, 146, 62, 0.34);
+
+      background:
+        rgba(199, 146, 62, 0.07);
+    }
+
+    .shared-note strong {
+      color: var(--gold-light);
+    }
+
+    /* =========================
+       HOW IT WORKS
+    ========================= */
+
+    .how {
+      margin-top: 58px;
+
+      padding: 28px;
+
+      border:
+        1px solid
+        rgba(199, 146, 62, 0.28);
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(35, 35, 35, 0.9),
+          rgba(8, 8, 8, 0.96)
         );
     }
 
     .how-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 18px;
+
       margin-top: 24px;
     }
 
     .how-card {
-      padding: 20px;
+      padding: 22px;
+
       text-align: center;
 
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 17px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
 
       background:
-        rgba(255, 255, 255, 0.03);
+        rgba(255, 255, 255, 0.035);
     }
 
     .step {
       display: flex;
+
       align-items: center;
       justify-content: center;
 
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
+
       margin: 0 auto 12px;
 
       border-radius: 50%;
-      background: var(--red);
 
-      color: white;
+      background:
+        linear-gradient(
+          180deg,
+          var(--gold-light),
+          var(--gold)
+        );
+
+      color: #080808;
+
       font-size: 18px;
+
       font-weight: 1000;
     }
 
     .how-card h3 {
       margin: 0 0 8px;
-      color: var(--red);
+
+      color: var(--gold-light);
+
       font-size: 16px;
+
       text-transform: uppercase;
     }
 
     .how-card p {
       margin: 0;
+
       color: var(--silver);
+
       font-size: 14px;
+
       line-height: 1.5;
     }
 
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
-      margin-top: 46px;
+      margin-top: 48px;
+
       text-align: center;
+
       color: var(--muted);
+
       font-size: 13px;
+
       line-height: 1.7;
     }
 
     footer strong {
-      color: var(--red);
-      letter-spacing: 0.14em;
+      color: var(--gold-light);
+
+      letter-spacing: 0.15em;
     }
 
-    @media (max-width: 960px) {
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1240px) {
+
       .player-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns:
+          repeat(4, 190px);
       }
+
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 880px) {
+
       .player-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(3, 185px);
+
+        gap: 24px 18px;
+      }
+
+      .player-card {
+        width: 185px;
+        height: 185px;
+      }
+
+    }
+
+    @media (max-width: 650px) {
+
+      .page {
+        width: 95%;
+      }
+
+      .logo {
+        width: min(270px, 76vw);
+      }
+
+      .player-grid {
+        grid-template-columns:
+          repeat(2, 165px);
+
+        gap: 18px 14px;
+      }
+
+      .player-card {
+        width: 165px;
+        height: 165px;
+      }
+
+      .player-number {
+        font-size: 21px;
+      }
+
+      .player-name {
+        font-size: 15px;
+      }
+
+      .support {
+        margin-top: 8px;
+        padding: 6px 8px;
+        font-size: 7px;
       }
 
       .how-grid {
         grid-template-columns: 1fr;
       }
+
     }
 
-    @media (max-width: 460px) {
+    @media (max-width: 390px) {
+
       .player-grid {
         grid-template-columns: 1fr;
       }
+
+      .player-card {
+        width: 220px;
+        height: 220px;
+      }
+
+      .player-number {
+        font-size: 27px;
+      }
+
+      .player-name {
+        font-size: 20px;
+      }
+
+      .support {
+        font-size: 9px;
+      }
+
     }
   </style>
 </head>
@@ -362,6 +702,8 @@
 <body>
 
   <main class="page">
+
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -376,6 +718,7 @@
       </div>
 
       <h1 class="hero-title">
+
         <span class="road">
           Road To
         </span>
@@ -383,6 +726,7 @@
         <span class="coop">
           Cooperstown
         </span>
+
       </h1>
 
       <div class="hero-rule"></div>
@@ -393,12 +737,14 @@
 
       <p class="intro">
         Help support Vaughn Sports Academy on their Road to Cooperstown.
-        Choose the player you want to support below, then select from the team's
+        Choose the player you want to support, then select from the team's
         <strong>shared 100-baseball fundraiser board</strong>.
       </p>
 
     </section>
 
+
+    <!-- PLAYERS -->
 
     <section class="players-section">
 
@@ -411,131 +757,367 @@
       </h2>
 
       <p class="section-subtitle">
-        Every player uses the same shared baseball board.
-        Your contribution will still be credited to the player you choose.
+        Every player shares the same 100-baseball team board.
+        Your contribution will be credited to the player you choose.
       </p>
 
 
       <div class="player-grid">
 
-        <a class="player-card" href="/fundraiser?player=cj-tompkins">
-          <div class="player-number">#16</div>
-          <div class="player-name">CJ Tompkins</div>
-          <div class="support-text">Support CJ →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=cj-tompkins"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #16
+            </div>
+
+            <div class="player-name">
+              CJ Tompkins
+            </div>
+
+            <div class="support">
+              Support CJ →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=boe-cannella">
-          <div class="player-number">#5</div>
-          <div class="player-name">Boe Cannella</div>
-          <div class="support-text">Support Boe →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=boe-cannella"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #5
+            </div>
+
+            <div class="player-name">
+              Boe Cannella
+            </div>
+
+            <div class="support">
+              Support Boe →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=charlie-wasch">
-          <div class="player-number">#15</div>
-          <div class="player-name">Charlie Wasch</div>
-          <div class="support-text">Support Charlie →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=charlie-wasch"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #15
+            </div>
+
+            <div class="player-name">
+              Charlie Wasch
+            </div>
+
+            <div class="support">
+              Support Charlie →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=daniel-laud-hammond">
-          <div class="player-number">#27</div>
-          <div class="player-name">Daniel Laud-Hammond</div>
-          <div class="support-text">Support Daniel →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=daniel-laud-hammond"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #27
+            </div>
+
+            <div class="player-name">
+              Daniel<br />
+              Laud-Hammond
+            </div>
+
+            <div class="support">
+              Support Daniel →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=elias-avila">
-          <div class="player-number">#11</div>
-          <div class="player-name">Elias Avila</div>
-          <div class="support-text">Support Elias →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=elias-avila"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #11
+            </div>
+
+            <div class="player-name">
+              Elias Avila
+            </div>
+
+            <div class="support">
+              Support Elias →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=harrison-ruben">
-          <div class="player-number">#23</div>
-          <div class="player-name">Harrison Ruben</div>
-          <div class="support-text">Support Harrison →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=harrison-ruben"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #23
+            </div>
+
+            <div class="player-name">
+              Harrison<br />
+              Ruben
+            </div>
+
+            <div class="support">
+              Support Harrison →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=jace-comparato">
-          <div class="player-number">#33</div>
-          <div class="player-name">Jace Comparato</div>
-          <div class="support-text">Support Jace →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=jace-comparato"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #33
+            </div>
+
+            <div class="player-name">
+              Jace Comparato
+            </div>
+
+            <div class="support">
+              Support Jace →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=jonas-urrego">
-          <div class="player-number">#13</div>
-          <div class="player-name">Jonas Urrego</div>
-          <div class="support-text">Support Jonas →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=jonas-urrego"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #13
+            </div>
+
+            <div class="player-name">
+              Jonas Urrego
+            </div>
+
+            <div class="support">
+              Support Jonas →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=julius-gonzalez">
-          <div class="player-number">#24</div>
-          <div class="player-name">Julius Gonzalez</div>
-          <div class="support-text">Support Julius →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=julius-gonzalez"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #24
+            </div>
+
+            <div class="player-name">
+              Julius<br />
+              Gonzalez
+            </div>
+
+            <div class="support">
+              Support Julius →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=luke-garcia">
-          <div class="player-number">#2</div>
-          <div class="player-name">Luke Garcia</div>
-          <div class="support-text">Support Luke →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=luke-garcia"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #2
+            </div>
+
+            <div class="player-name">
+              Luke Garcia
+            </div>
+
+            <div class="support">
+              Support Luke →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=patrick-mansfield">
-          <div class="player-number">#8</div>
-          <div class="player-name">Patrick Mansfield</div>
-          <div class="support-text">Support Patrick →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=patrick-mansfield"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #8
+            </div>
+
+            <div class="player-name">
+              Patrick<br />
+              Mansfield
+            </div>
+
+            <div class="support">
+              Support Patrick →
+            </div>
+
+          </div>
         </a>
 
-        <a class="player-card" href="/fundraiser?player=samuel-santiago">
-          <div class="player-number">#42</div>
-          <div class="player-name">Samuel Santiago</div>
-          <div class="support-text">Support Samuel →</div>
+
+        <a
+          class="player-card"
+          href="/fundraiser?player=samuel-santiago"
+        >
+          <div class="player-content">
+
+            <div class="player-number">
+              #42
+            </div>
+
+            <div class="player-name">
+              Samuel<br />
+              Santiago
+            </div>
+
+            <div class="support">
+              Support Samuel →
+            </div>
+
+          </div>
         </a>
+
 
       </div>
 
 
-      <div class="shared-board-note">
-        <strong>Shared Team Board:</strong>
-        all 12 VSA players draw from the same 100 available baseball numbers.
-        Once a baseball is purchased, it is no longer available for any player.
+      <div class="shared-note">
+
+        <strong>
+          One Shared Team Board:
+        </strong>
+
+        all 12 VSA players share the same 100 baseball numbers.
+        Once a baseball is purchased, that number is no longer
+        available for any other player.
+
       </div>
 
     </section>
 
+
+    <!-- HOW IT WORKS -->
 
     <section class="how">
 
       <div class="section-kicker">
-        How It Works
+        Simple & Secure
       </div>
 
       <h2 class="section-title">
-        Support VSA
+        How It Works
       </h2>
+
 
       <div class="how-grid">
 
         <div class="how-card">
-          <div class="step">1</div>
-          <h3>Choose a Player</h3>
+
+          <div class="step">
+            1
+          </div>
+
+          <h3>
+            Choose a Player
+          </h3>
+
           <p>
-            Select the VSA player you want your contribution credited toward.
+            Select the VSA player you want your contribution
+            credited toward.
           </p>
+
         </div>
 
-        <div class="how-card">
-          <div class="step">2</div>
-          <h3>Pick Baseballs</h3>
-          <p>
-            Choose one or more available numbers from the shared 100-ball board.
-          </p>
-        </div>
 
         <div class="how-card">
-          <div class="step">3</div>
-          <h3>Checkout</h3>
+
+          <div class="step">
+            2
+          </div>
+
+          <h3>
+            Pick Baseballs
+          </h3>
+
           <p>
-            Complete your contribution securely through Stripe Checkout.
+            Choose one or more available numbers from the
+            shared 100-baseball team board.
           </p>
+
+        </div>
+
+
+        <div class="how-card">
+
+          <div class="step">
+            3
+          </div>
+
+          <h3>
+            Checkout Securely
+          </h3>
+
+          <p>
+            Complete your contribution through secure
+            Stripe Checkout.
+          </p>
+
         </div>
 
       </div>
@@ -543,10 +1125,18 @@
     </section>
 
 
+    <!-- FOOTER -->
+
     <footer>
-      <strong>VAUGHN SPORTS ACADEMY</strong>
+
+      <strong>
+        VAUGHN SPORTS ACADEMY
+      </strong>
+
       <br />
-      Road to Cooperstown
+
+      Building Players. Building Character. Road to Cooperstown.
+
     </footer>
 
   </main>
