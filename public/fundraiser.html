@@ -33,9 +33,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-
       font-family: Arial, Helvetica, sans-serif;
-
       color: var(--white);
 
       background:
@@ -67,7 +65,6 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-
       margin-bottom: 24px;
     }
 
@@ -100,99 +97,66 @@
 
     .team-label {
       color: var(--red);
-
       font-size: 12px;
       font-weight: 900;
-
       letter-spacing: 0.22em;
-
       text-transform: uppercase;
     }
 
     .player-name {
       margin: 8px 0 4px;
-
       font-size: clamp(36px, 7vw, 66px);
-
       font-weight: 1000;
-
       text-transform: uppercase;
     }
 
     .player-number {
       color: var(--red);
-
       font-size: clamp(24px, 4vw, 34px);
-
       font-weight: 1000;
     }
 
     .hero p {
       max-width: 720px;
-
       margin: 14px auto 0;
-
       color: var(--silver);
-
       font-size: 16px;
-
       line-height: 1.5;
     }
 
     .stats {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
+      grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-
       margin-bottom: 26px;
     }
 
     .stat {
       padding: 18px;
-
       text-align: center;
-
       border-radius: 16px;
-
-      border:
-        1px solid
-        rgba(215, 25, 32, 0.25);
-
-      background:
-        rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(215, 25, 32, 0.25);
+      background: rgba(255, 255, 255, 0.035);
     }
 
     .stat-value {
       color: var(--red);
-
       font-size: 28px;
-
       font-weight: 1000;
     }
 
     .stat-label {
       margin-top: 5px;
-
       color: var(--muted);
-
       font-size: 12px;
-
       text-transform: uppercase;
-
       letter-spacing: 0.08em;
     }
 
     .board-panel {
       padding: 24px;
-
       border-radius: 20px;
-
-      border:
-        1px solid
-        rgba(215, 25, 32, 0.24);
+      border: 1px solid rgba(215, 25, 32, 0.24);
 
       background:
         linear-gradient(
@@ -202,60 +166,44 @@
         );
 
       box-shadow:
-        0 20px 40px
-        rgba(0, 0, 0, 0.28);
+        0 20px 40px rgba(0, 0, 0, 0.28);
     }
 
     .board-heading {
       text-align: center;
-
       margin-bottom: 22px;
     }
 
     .board-heading h2 {
       margin: 0;
-
       font-size: clamp(26px, 4vw, 38px);
-
       text-transform: uppercase;
     }
 
     .board-heading p {
       margin: 8px 0 0;
-
       color: var(--muted);
-
       line-height: 1.5;
     }
 
     .baseball-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(10, 1fr);
-
+      grid-template-columns: repeat(10, 1fr);
       gap: 12px;
     }
 
     .ball {
       position: relative;
-
       width: 100%;
-
       aspect-ratio: 1 / 1;
 
       display: flex;
-
       flex-direction: column;
-
       align-items: center;
-
       justify-content: center;
 
       overflow: hidden;
-
       cursor: pointer;
-
       border-radius: 50%;
 
       border:
@@ -271,10 +219,8 @@
         );
 
       box-shadow:
-        inset -5px -6px 10px
-        rgba(0, 0, 0, 0.12),
-        0 7px 14px
-        rgba(0, 0, 0, 0.28);
+        inset -5px -6px 10px rgba(0, 0, 0, 0.12),
+        0 7px 14px rgba(0, 0, 0, 0.28);
 
       transition:
         transform 0.12s ease,
@@ -285,12 +231,10 @@
     .ball::before,
     .ball::after {
       content: "";
-
       position: absolute;
 
       top: 10%;
       bottom: 10%;
-
       width: 31%;
 
       border:
@@ -298,13 +242,9 @@
         var(--stitch);
 
       border-top: none;
-
       border-bottom: none;
-
       border-radius: 50%;
-
       opacity: 0.52;
-
       pointer-events: none;
     }
 
@@ -317,122 +257,88 @@
     }
 
     .ball.available:hover {
-      transform:
-        translateY(-3px)
-        scale(1.04);
-
+      transform: translateY(-3px) scale(1.04);
       border-color: var(--red);
 
       box-shadow:
-        0 10px 18px
-        rgba(0, 0, 0, 0.34);
+        0 10px 18px rgba(0, 0, 0, 0.34);
     }
 
     .ball.selected {
-      border:
-        4px solid
-        var(--red);
+      border: 4px solid var(--red);
 
       box-shadow:
-        0 0 0 4px
-        rgba(215, 25, 32, 0.22),
-        0 10px 20px
-        rgba(0, 0, 0, 0.36);
+        0 0 0 4px rgba(215, 25, 32, 0.22),
+        0 10px 20px rgba(0, 0, 0, 0.36);
     }
 
     .ball.sold {
       cursor: not-allowed;
-
       opacity: 0.38;
-
       filter: grayscale(1);
     }
 
     .ball-number {
       position: relative;
-
       z-index: 2;
-
       color: #111827;
-
       font-size: 18px;
-
       font-weight: 1000;
     }
 
     .ball-price {
       position: relative;
-
       z-index: 2;
-
       margin-top: 2px;
-
       color: var(--red-dark);
-
       font-size: 11px;
-
       font-weight: 900;
     }
 
+    /* FIXED: checkout is now part of the page flow */
     .checkout-panel {
-      position: sticky;
-
-      bottom: 14px;
+      position: static;
 
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
       gap: 18px;
-
-      margin-top: 26px;
-
+      margin-top: 30px;
       padding: 18px 20px;
 
       border-radius: 18px;
-
-      border:
-        1px solid
-        rgba(215, 25, 32, 0.42);
+      border: 1px solid rgba(215, 25, 32, 0.42);
 
       background:
-        rgba(5, 7, 13, 0.96);
-
-      backdrop-filter:
-        blur(12px);
+        linear-gradient(
+          180deg,
+          rgba(20, 25, 35, 0.98),
+          rgba(5, 7, 13, 0.98)
+        );
 
       box-shadow:
-        0 14px 34px
-        rgba(0, 0, 0, 0.42);
+        0 14px 34px rgba(0, 0, 0, 0.32);
     }
 
     .selection-info {
       color: var(--silver);
-
       font-size: 14px;
     }
 
     .selection-info strong {
       display: block;
-
       margin-top: 3px;
-
       color: var(--white);
-
       font-size: 20px;
     }
 
     .checkout-button {
       min-width: 190px;
-
       padding: 14px 18px;
 
       border: 0;
-
       border-radius: 12px;
-
       cursor: pointer;
 
       background:
@@ -443,11 +349,8 @@
         );
 
       color: white;
-
       font-size: 15px;
-
       font-weight: 1000;
-
       text-transform: uppercase;
     }
 
@@ -462,69 +365,44 @@
 
     .checkout-button:disabled {
       cursor: not-allowed;
-
       opacity: 0.45;
     }
 
     .message {
       display: none;
-
       margin: 20px 0;
-
       padding: 14px 16px;
-
       border-radius: 12px;
-
       text-align: center;
-
       font-weight: 700;
     }
 
     .message.error {
       display: block;
-
-      background:
-        rgba(215, 25, 32, 0.12);
-
-      border:
-        1px solid
-        rgba(215, 25, 32, 0.4);
-
+      background: rgba(215, 25, 32, 0.12);
+      border: 1px solid rgba(215, 25, 32, 0.4);
       color: #ffb8ba;
     }
 
     .message.success {
       display: block;
-
-      background:
-        rgba(34, 197, 94, 0.12);
-
-      border:
-        1px solid
-        rgba(34, 197, 94, 0.4);
-
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.4);
       color: #a7f3c0;
     }
 
     .loading {
       text-align: center;
-
       padding: 50px 0;
-
       color: var(--silver);
-
       font-size: 18px;
     }
 
     footer {
       margin-top: 42px;
-
       text-align: center;
-
       color: var(--muted);
-
       font-size: 13px;
-
       line-height: 1.6;
     }
 
@@ -534,15 +412,13 @@
 
     @media (max-width: 1000px) {
       .baseball-grid {
-        grid-template-columns:
-          repeat(8, 1fr);
+        grid-template-columns: repeat(8, 1fr);
       }
     }
 
     @media (max-width: 780px) {
       .baseball-grid {
-        grid-template-columns:
-          repeat(5, 1fr);
+        grid-template-columns: repeat(5, 1fr);
       }
 
       .stats {
@@ -551,9 +427,7 @@
 
       .checkout-panel {
         flex-direction: column;
-
         align-items: stretch;
-
         text-align: center;
       }
 
@@ -572,9 +446,7 @@
       }
 
       .baseball-grid {
-        grid-template-columns:
-          repeat(4, 1fr);
-
+        grid-template-columns: repeat(4, 1fr);
         gap: 8px;
       }
 
@@ -788,13 +660,10 @@
     const playerKey =
       params.get("player");
 
-
     const selectedBalls =
       new Set();
 
-
     let baseballs = [];
-
 
     const playerNameElement =
       document.getElementById(
@@ -856,19 +725,15 @@
       text,
       type = "error"
     ) {
-
       message.textContent = text;
-
       message.className =
         "message " + type;
-
     }
 
 
     function formatMoney(
       cents
     ) {
-
       return new Intl.NumberFormat(
         "en-US",
         {
@@ -879,7 +744,6 @@
       ).format(
         cents / 100
       );
-
     }
 
 
@@ -891,7 +755,6 @@
         ).sort(
           (a, b) => a - b
         );
-
 
       if (
         selectedArray.length === 0
@@ -907,7 +770,6 @@
           "Continue to Checkout";
 
         return;
-
       }
 
 
@@ -925,10 +787,8 @@
             );
 
           if (ball) {
-
             total +=
               ball.amount_cents;
-
           }
 
         }
@@ -956,7 +816,6 @@
         "Checkout "
         +
         formatMoney(total);
-
     }
 
 
@@ -968,9 +827,7 @@
         ball.status !==
         "available"
       ) {
-
         return;
-
       }
 
 
@@ -994,9 +851,7 @@
 
 
       renderBoard();
-
       updateSelection();
-
     }
 
 
@@ -1093,7 +948,6 @@
           "Please return to the team page and choose a player.";
 
         return;
-
       }
 
 
@@ -1167,7 +1021,6 @@
 
 
         renderBoard();
-
         updateSelection();
 
       } catch (error) {
@@ -1183,7 +1036,6 @@
         );
 
       }
-
     }
 
 
@@ -1194,9 +1046,7 @@
         if (
           selectedBalls.size === 0
         ) {
-
           return;
-
         }
 
 
