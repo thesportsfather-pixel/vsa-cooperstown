@@ -1,1136 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>VSA Cooperstown Fundraiser</title>
-
-  <style>
-    :root {
-      --bg-dark: #05070d;
-      --panel: #111722;
-      --panel-light: #182231;
-
-      --red: #d71920;
-      --red-dark: #8f0f14;
-
-      --white: #ffffff;
-      --silver: #d5d9df;
-      --muted: #9ea6b2;
-
-      --green: #22c55e;
-
-      --ball: #f5f1e7;
-      --ball-dark: #d8d1c5;
-      --stitch: #c62828;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--white);
-
-      background:
-        radial-gradient(
-          circle at 50% 0%,
-          rgba(215, 25, 32, 0.16),
-          transparent 32%
-        ),
-        linear-gradient(
-          180deg,
-          #111722 0%,
-          #05070d 100%
-        );
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    .page {
-      width: min(1180px, 94%);
-      margin: 0 auto;
-      padding: 26px 0 60px;
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .back-link {
-      color: var(--silver);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .back-link:hover {
-      color: var(--red);
-    }
-
-    .mini-logo {
-      width: 90px;
-      height: auto;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 34px;
-    }
-
-    .hero-logo {
-      width: min(190px, 54vw);
-      height: auto;
-      margin-bottom: 8px;
-    }
-
-    .team-label {
-      color: var(--red);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .player-name {
-      margin: 8px 0 4px;
-      font-size: clamp(36px, 7vw, 66px);
-      font-weight: 1000;
-      text-transform: uppercase;
-    }
-
-    .player-number {
-      color: var(--red);
-      font-size: clamp(24px, 4vw, 34px);
-      font-weight: 1000;
-    }
-
-    .hero p {
-      max-width: 720px;
-      margin: 14px auto 0;
-      color: var(--silver);
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 26px;
-    }
-
-    .stat {
-      padding: 18px;
-      text-align: center;
-      border-radius: 16px;
-      border: 1px solid rgba(215, 25, 32, 0.25);
-      background: rgba(255, 255, 255, 0.035);
-    }
-
-    .stat-value {
-      color: var(--red);
-      font-size: 28px;
-      font-weight: 1000;
-    }
-
-    .stat-label {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .board-panel {
-      padding: 24px;
-      border-radius: 20px;
-      border: 1px solid rgba(215, 25, 32, 0.24);
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(24, 34, 49, 0.9),
-          rgba(7, 10, 16, 0.95)
-        );
-
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.28);
-    }
-
-    .board-heading {
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .board-heading h2 {
-      margin: 0;
-      font-size: clamp(26px, 4vw, 38px);
-      text-transform: uppercase;
-    }
-
-    .board-heading p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .baseball-grid {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 12px;
-    }
-
-    .ball {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      overflow: hidden;
-      cursor: pointer;
-      border-radius: 50%;
-
-      border:
-        2px solid
-        rgba(255, 255, 255, 0.9);
-
-      background:
-        radial-gradient(
-          circle at 35% 25%,
-          #ffffff 0%,
-          var(--ball) 44%,
-          var(--ball-dark) 100%
-        );
-
-      box-shadow:
-        inset -5px -6px 10px rgba(0, 0, 0, 0.12),
-        0 7px 14px rgba(0, 0, 0, 0.28);
-
-      transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease,
-        border-color 0.12s ease;
-    }
-
-    .ball::before,
-    .ball::after {
-      content: "";
-      position: absolute;
-
-      top: 10%;
-      bottom: 10%;
-      width: 31%;
-
-      border:
-        2px dashed
-        var(--stitch);
-
-      border-top: none;
-      border-bottom: none;
-      border-radius: 50%;
-      opacity: 0.52;
-      pointer-events: none;
-    }
-
-    .ball::before {
-      left: 4%;
-    }
-
-    .ball::after {
-      right: 4%;
-    }
-
-    .ball.available:hover {
-      transform: translateY(-3px) scale(1.04);
-      border-color: var(--red);
-
-      box-shadow:
-        0 10px 18px rgba(0, 0, 0, 0.34);
-    }
-
-    .ball.selected {
-      border: 4px solid var(--red);
-
-      box-shadow:
-        0 0 0 4px rgba(215, 25, 32, 0.22),
-        0 10px 20px rgba(0, 0, 0, 0.36);
-    }
-
-    .ball.sold {
-      cursor: not-allowed;
-      opacity: 0.38;
-      filter: grayscale(1);
-    }
-
-    .ball-number {
-      position: relative;
-      z-index: 2;
-      color: #111827;
-      font-size: 18px;
-      font-weight: 1000;
-    }
-
-    .ball-price {
-      position: relative;
-      z-index: 2;
-      margin-top: 2px;
-      color: var(--red-dark);
-      font-size: 11px;
-      font-weight: 900;
-    }
-
-    /* FIXED: checkout is now part of the page flow */
-    .checkout-panel {
-      position: static;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 18px;
-      margin-top: 30px;
-      padding: 18px 20px;
-
-      border-radius: 18px;
-      border: 1px solid rgba(215, 25, 32, 0.42);
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(20, 25, 35, 0.98),
-          rgba(5, 7, 13, 0.98)
-        );
-
-      box-shadow:
-        0 14px 34px rgba(0, 0, 0, 0.32);
-    }
-
-    .selection-info {
-      color: var(--silver);
-      font-size: 14px;
-    }
-
-    .selection-info strong {
-      display: block;
-      margin-top: 3px;
-      color: var(--white);
-      font-size: 20px;
-    }
-
-    .checkout-button {
-      min-width: 190px;
-      padding: 14px 18px;
-
-      border: 0;
-      border-radius: 12px;
-      cursor: pointer;
-
-      background:
-        linear-gradient(
-          180deg,
-          #ef2931,
-          var(--red)
-        );
-
-      color: white;
-      font-size: 15px;
-      font-weight: 1000;
-      text-transform: uppercase;
-    }
-
-    .checkout-button:hover {
-      background:
-        linear-gradient(
-          180deg,
-          #ff3941,
-          #c9151b
-        );
-    }
-
-    .checkout-button:disabled {
-      cursor: not-allowed;
-      opacity: 0.45;
-    }
-
-    .message {
-      display: none;
-      margin: 20px 0;
-      padding: 14px 16px;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .message.error {
-      display: block;
-      background: rgba(215, 25, 32, 0.12);
-      border: 1px solid rgba(215, 25, 32, 0.4);
-      color: #ffb8ba;
-    }
-
-    .message.success {
-      display: block;
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      color: #a7f3c0;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 50px 0;
-      color: var(--silver);
-      font-size: 18px;
-    }
-
-    footer {
-      margin-top: 42px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    footer strong {
-      color: var(--red);
-    }
-
-    @media (max-width: 1000px) {
-      .baseball-grid {
-        grid-template-columns: repeat(8, 1fr);
-      }
-    }
-
-    @media (max-width: 780px) {
-      .baseball-grid {
-        grid-template-columns: repeat(5, 1fr);
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .checkout-panel {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-
-      .checkout-button {
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .page {
-        width: 96%;
-      }
-
-      .board-panel {
-        padding: 16px 10px;
-      }
-
-      .baseball-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-      }
-
-      .ball-number {
-        font-size: 15px;
-      }
-
-      .ball-price {
-        font-size: 9px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <main class="page">
-
-    <div class="topbar">
-
-      <a
-        href="/"
-        class="back-link"
-      >
-        ← Back to Team
-      </a>
-
-      <img
-        src="/vsa-logo.png"
-        alt="Vaughn Sports Academy"
-        class="mini-logo"
-      />
-
-    </div>
-
-
-    <section class="hero">
-
-      <img
-        src="/vsa-logo.png"
-        alt="Vaughn Sports Academy"
-        class="hero-logo"
-      />
-
-      <div class="team-label">
-        Vaughn Sports Academy
-      </div>
-
-      <h1
-        class="player-name"
-        id="playerName"
-      >
-        Loading...
-      </h1>
-
-      <div
-        class="player-number"
-        id="playerNumber"
-      ></div>
-
-      <p>
-        Choose one or more available baseballs below.
-        Every VSA player shares this same 100-baseball team board.
-        Your contribution will be credited to the player you selected.
-      </p>
-
-    </section>
-
-
-    <div
-      id="message"
-      class="message"
-    ></div>
-
-
-    <section class="stats">
-
-      <div class="stat">
-
-        <div
-          class="stat-value"
-          id="raisedAmount"
-        >
-          $0
-        </div>
-
-        <div class="stat-label">
-          Team Raised
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div
-          class="stat-value"
-          id="soldCount"
-        >
-          0
-        </div>
-
-        <div class="stat-label">
-          Baseballs Sold
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div
-          class="stat-value"
-          id="remainingCount"
-        >
-          100
-        </div>
-
-        <div class="stat-label">
-          Baseballs Remaining
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <section class="board-panel">
-
-      <div class="board-heading">
-
-        <h2>
-          VSA Shared Baseball Board
-        </h2>
-
-        <p>
-          Ball #1 = $1, Ball #2 = $2, all the way through Ball #100 = $100.
-        </p>
-
-      </div>
-
-
-      <div
-        id="loading"
-        class="loading"
-      >
-        Loading baseball board...
-      </div>
-
-
-      <div
-        id="baseballGrid"
-        class="baseball-grid"
-        style="display: none;"
-      ></div>
-
-
-      <div
-        id="checkoutPanel"
-        class="checkout-panel"
-        style="display: none;"
-      >
-
-        <div class="selection-info">
-
-          Selected Baseballs
-
-          <strong id="selectionSummary">
-            None
-          </strong>
-
-        </div>
-
-
-        <button
-          id="checkoutButton"
-          class="checkout-button"
-          disabled
-        >
-          Continue to Checkout
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <footer>
-
-      <strong>
-        Vaughn Sports Academy
-      </strong>
-
-      <br />
-
-      Road to Cooperstown
-
-    </footer>
-
-  </main>
-
-
-  <script>
-    const TEAM_KEY = "vsa-cooperstown";
-
-    const params =
-      new URLSearchParams(
-        window.location.search
+export async function onRequestGet(context) {
+  const { request, env } = context;
+
+  try {
+    const url = new URL(request.url);
+    const playerKey = url.searchParams.get("player");
+
+    if (!playerKey) {
+      return jsonResponse(
+        { error: "Missing player." },
+        400
       );
+    }
 
-    const playerKey =
-      params.get("player");
+    const SUPABASE_URL = env.SUPABASE_URL;
+    const SUPABASE_SERVICE_ROLE_KEY =
+      env.SUPABASE_SERVICE_ROLE_KEY;
+    const TEAM_KEY =
+      env.TEAM_KEY || "vsa-cooperstown";
 
-    const selectedBalls =
-      new Set();
-
-    let baseballs = [];
-
-    const playerNameElement =
-      document.getElementById(
-        "playerName"
-      );
-
-    const playerNumberElement =
-      document.getElementById(
-        "playerNumber"
-      );
-
-    const baseballGrid =
-      document.getElementById(
-        "baseballGrid"
-      );
-
-    const loading =
-      document.getElementById(
-        "loading"
-      );
-
-    const checkoutPanel =
-      document.getElementById(
-        "checkoutPanel"
-      );
-
-    const checkoutButton =
-      document.getElementById(
-        "checkoutButton"
-      );
-
-    const selectionSummary =
-      document.getElementById(
-        "selectionSummary"
-      );
-
-    const raisedAmount =
-      document.getElementById(
-        "raisedAmount"
-      );
-
-    const soldCount =
-      document.getElementById(
-        "soldCount"
-      );
-
-    const remainingCount =
-      document.getElementById(
-        "remainingCount"
-      );
-
-    const message =
-      document.getElementById(
-        "message"
-      );
-
-
-    function showMessage(
-      text,
-      type = "error"
+    if (
+      !SUPABASE_URL ||
+      !SUPABASE_SERVICE_ROLE_KEY
     ) {
-      message.textContent = text;
-      message.className =
-        "message " + type;
-    }
-
-
-    function formatMoney(
-      cents
-    ) {
-      return new Intl.NumberFormat(
-        "en-US",
+      return jsonResponse(
         {
-          style: "currency",
-          currency: "USD",
-          maximumFractionDigits: 0
-        }
-      ).format(
-        cents / 100
+          error:
+            "Supabase environment variables are missing."
+        },
+        500
       );
     }
 
-
-    function updateSelection() {
-
-      const selectedArray =
-        Array.from(
-          selectedBalls
-        ).sort(
-          (a, b) => a - b
-        );
-
-      if (
-        selectedArray.length === 0
-      ) {
-
-        selectionSummary.textContent =
-          "None";
-
-        checkoutButton.disabled =
-          true;
-
-        checkoutButton.textContent =
-          "Continue to Checkout";
-
-        return;
-      }
-
-
-      let total = 0;
-
-
-      selectedArray.forEach(
-        number => {
-
-          const ball =
-            baseballs.find(
-              item =>
-                item.ball_number ===
-                number
-            );
-
-          if (ball) {
-            total +=
-              ball.amount_cents;
-          }
-
-        }
-      );
-
-
-      selectionSummary.textContent =
-        selectedArray
-          .map(
-            number =>
-              "#" + number
-          )
-          .join(", ")
-        +
-        " — "
-        +
-        formatMoney(total);
-
-
-      checkoutButton.disabled =
-        false;
-
-
-      checkoutButton.textContent =
-        "Checkout "
-        +
-        formatMoney(total);
-    }
-
-
-    function toggleBall(
-      ball
-    ) {
-
-      if (
-        ball.status !==
-        "available"
-      ) {
-        return;
-      }
-
-
-      if (
-        selectedBalls.has(
-          ball.ball_number
-        )
-      ) {
-
-        selectedBalls.delete(
-          ball.ball_number
-        );
-
-      } else {
-
-        selectedBalls.add(
-          ball.ball_number
-        );
-
-      }
-
-
-      renderBoard();
-      updateSelection();
-    }
-
-
-    function renderBoard() {
-
-      baseballGrid.innerHTML = "";
-
-
-      baseballs.forEach(
-        ball => {
-
-          const button =
-            document.createElement(
-              "button"
-            );
-
-
-          button.type =
-            "button";
-
-
-          button.className =
-            "ball " +
-            ball.status;
-
-
-          if (
-            selectedBalls.has(
-              ball.ball_number
-            )
-          ) {
-
-            button.classList.add(
-              "selected"
-            );
-
-          }
-
-
-          button.innerHTML = `
-            <div class="ball-number">
-              #${ball.ball_number}
-            </div>
-
-            <div class="ball-price">
-              ${formatMoney(
-                ball.amount_cents
-              )}
-            </div>
-          `;
-
-
-          if (
-            ball.status ===
-            "sold"
-          ) {
-
-            button.disabled =
-              true;
-
-            button.title =
-              "Already sold";
-
-          } else {
-
-            button.addEventListener(
-              "click",
-              () =>
-                toggleBall(ball)
-            );
-
-          }
-
-
-          baseballGrid.appendChild(
-            button
-          );
-
-        }
-      );
-
-    }
-
-
-    async function loadFundraiser() {
-
-      if (!playerKey) {
-
-        showMessage(
-          "No player was selected."
-        );
-
-        loading.textContent =
-          "Please return to the team page and choose a player.";
-
-        return;
-      }
-
-
-      try {
-
-        const response =
-          await fetch(
-            "/api/fundraiser?player="
-            +
-            encodeURIComponent(
-              playerKey
-            )
-          );
-
-
-        const data =
-          await response.json();
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.error ||
-            "Unable to load fundraiser."
-          );
-
-        }
-
-
-        playerNameElement.textContent =
-          data.player.player_name;
-
-
-        playerNumberElement.textContent =
-          "#"
-          +
-          data.player.player_number;
-
-
-        baseballs =
-          data.baseballs || [];
-
-
-        raisedAmount.textContent =
-          formatMoney(
-            data.totals.raised_cents ||
-            0
-          );
-
-
-        soldCount.textContent =
-          data.totals.sold_count ||
-          0;
-
-
-        remainingCount.textContent =
-          data.totals.remaining_count ??
-          100;
-
-
-        loading.style.display =
-          "none";
-
-
-        baseballGrid.style.display =
-          "grid";
-
-
-        checkoutPanel.style.display =
-          "flex";
-
-
-        renderBoard();
-        updateSelection();
-
-      } catch (error) {
-
-        console.error(error);
-
-        loading.style.display =
-          "none";
-
-        showMessage(
-          error.message ||
-          "Something went wrong loading the fundraiser."
-        );
-
-      }
-    }
-
-
-    checkoutButton.addEventListener(
-      "click",
-      async () => {
-
-        if (
-          selectedBalls.size === 0
-        ) {
-          return;
-        }
-
-
-        checkoutButton.disabled =
-          true;
-
-
-        checkoutButton.textContent =
-          "Loading Checkout...";
-
-
-        try {
-
-          const response =
-            await fetch(
-              "/api/create-checkout",
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json"
-                },
-
-                body: JSON.stringify({
-                  player: playerKey,
-
-                  baseball_numbers:
-                    Array.from(
-                      selectedBalls
-                    )
-                })
-              }
-            );
-
-
-          const data =
-            await response.json();
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              data.error ||
-              "Unable to start checkout."
-            );
-
-          }
-
-
-          if (!data.url) {
-
-            throw new Error(
-              "Checkout URL was not returned."
-            );
-
-          }
-
-
-          window.location.href =
-            data.url;
-
-        } catch (error) {
-
-          console.error(error);
-
-          showMessage(
-            error.message ||
-            "Unable to start checkout."
-          );
-
-          checkoutButton.disabled =
-            false;
-
-          updateSelection();
-
-        }
-
+    const headers = {
+      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      Authorization:
+        `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      "Content-Type": "application/json"
+    };
+
+
+    // FIND TEAM
+
+    const teamResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/teams?team_key=eq.${encodeURIComponent(
+        TEAM_KEY
+      )}&select=id,team_name,team_key&limit=1`,
+      {
+        headers
       }
     );
 
+    if (!teamResponse.ok) {
+      console.error(
+        "Team lookup error:",
+        await teamResponse.text()
+      );
 
-    loadFundraiser();
-  </script>
+      return jsonResponse(
+        { error: "Unable to load team." },
+        500
+      );
+    }
 
-</body>
-</html>
+    const teams = await teamResponse.json();
+
+    if (!teams.length) {
+      return jsonResponse(
+        { error: "Team not found." },
+        404
+      );
+    }
+
+    const team = teams[0];
+
+
+    // FIND PLAYER
+
+    const playerResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/players?team_id=eq.${team.id}&player_key=eq.${encodeURIComponent(
+        playerKey
+      )}&select=id,player_key,player_name,player_number&limit=1`,
+      {
+        headers
+      }
+    );
+
+    if (!playerResponse.ok) {
+      console.error(
+        "Player lookup error:",
+        await playerResponse.text()
+      );
+
+      return jsonResponse(
+        { error: "Unable to load player." },
+        500
+      );
+    }
+
+    const players =
+      await playerResponse.json();
+
+    if (!players.length) {
+      return jsonResponse(
+        { error: "Player not found." },
+        404
+      );
+    }
+
+    const player = players[0];
+
+
+    // LOAD SHARED TEAM BOARD
+
+    const baseballResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/shared_baseballs?team_id=eq.${team.id}&select=id,ball_number,amount_cents,status,supported_player_id,sold_at&order=ball_number.asc`,
+      {
+        headers
+      }
+    );
+
+    if (!baseballResponse.ok) {
+      console.error(
+        "Baseball lookup error:",
+        await baseballResponse.text()
+      );
+
+      return jsonResponse(
+        {
+          error:
+            "Unable to load baseball board."
+        },
+        500
+      );
+    }
+
+    const baseballRows =
+      await baseballResponse.json();
+
+
+    // NORMALIZE STATUSES
+
+    const baseballs =
+      baseballRows.map(ball => {
+        let displayStatus =
+          ball.status;
+
+        if (
+          displayStatus === "reserved"
+        ) {
+          displayStatus = "sold";
+        }
+
+        return {
+          id: ball.id,
+          ball_number:
+            ball.ball_number,
+          amount_cents:
+            ball.amount_cents,
+          status:
+            displayStatus,
+          supported_player_id:
+            ball.supported_player_id,
+          sold_at:
+            ball.sold_at
+        };
+      });
+
+
+    // TOTALS
+
+    const soldBalls =
+      baseballRows.filter(
+        ball =>
+          ball.status === "sold"
+      );
+
+    const raisedCents =
+      soldBalls.reduce(
+        (total, ball) =>
+          total +
+          Number(
+            ball.amount_cents || 0
+          ),
+        0
+      );
+
+    const soldCount =
+      soldBalls.length;
+
+    const remainingCount =
+      baseballRows.filter(
+        ball =>
+          ball.status ===
+          "available"
+      ).length;
+
+
+    return jsonResponse(
+      {
+        team: {
+          id: team.id,
+          team_name:
+            team.team_name,
+          team_key:
+            team.team_key
+        },
+
+        player: {
+          id: player.id,
+          player_key:
+            player.player_key,
+          player_name:
+            player.player_name,
+          player_number:
+            player.player_number
+        },
+
+        baseballs,
+
+        totals: {
+          raised_cents:
+            raisedCents,
+          sold_count:
+            soldCount,
+          remaining_count:
+            remainingCount,
+          goal_cents:
+            505000
+        }
+      },
+      200
+    );
+
+  } catch (error) {
+    console.error(
+      "Fundraiser API error:",
+      error
+    );
+
+    return jsonResponse(
+      {
+        error:
+          "Unexpected server error."
+      },
+      500
+    );
+  }
+}
+
+
+function jsonResponse(
+  data,
+  status = 200
+) {
+  return new Response(
+    JSON.stringify(data),
+    {
+      status,
+
+      headers: {
+        "Content-Type":
+          "application/json",
+        "Cache-Control":
+          "no-store"
+      }
+    }
+  );
+}
