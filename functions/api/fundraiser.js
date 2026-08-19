@@ -2,21 +2,36 @@ export async function onRequestGet(context) {
   const { request, env } = context;
 
   try {
-    const url = new URL(request.url);
-    const playerKey = url.searchParams.get("player");
+    const url =
+      new URL(
+        request.url
+      );
+
+    const playerKey =
+      url.searchParams.get(
+        "player"
+      );
 
     if (!playerKey) {
       return jsonResponse(
-        { error: "Missing player." },
+        {
+          error:
+            "Missing player."
+        },
         400
       );
     }
 
-    const SUPABASE_URL = env.SUPABASE_URL;
+    const SUPABASE_URL =
+      env.SUPABASE_URL;
+
     const SUPABASE_SERVICE_ROLE_KEY =
       env.SUPABASE_SERVICE_ROLE_KEY;
+
     const TEAM_KEY =
-      env.TEAM_KEY || "vsa-cooperstown";
+      env.TEAM_KEY ||
+      "vsa-cooperstown";
+
 
     if (
       !SUPABASE_URL ||
@@ -31,24 +46,33 @@ export async function onRequestGet(context) {
       );
     }
 
+
     const headers = {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      apikey:
+        SUPABASE_SERVICE_ROLE_KEY,
+
       Authorization:
         `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      "Content-Type": "application/json"
+
+      "Content-Type":
+        "application/json"
     };
 
 
-    // FIND TEAM
+    /* =========================
+       FIND TEAM
+    ========================= */
 
-    const teamResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/teams?team_key=eq.${encodeURIComponent(
-        TEAM_KEY
-      )}&select=id,team_name,team_key&limit=1`,
-      {
-        headers
-      }
-    );
+    const teamResponse =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/teams?team_key=eq.${encodeURIComponent(
+          TEAM_KEY
+        )}&select=id,team_name,team_key&limit=1`,
+        {
+          headers
+        }
+      );
+
 
     if (!teamResponse.ok) {
       console.error(
@@ -57,33 +81,48 @@ export async function onRequestGet(context) {
       );
 
       return jsonResponse(
-        { error: "Unable to load team." },
+        {
+          error:
+            "Unable to load team."
+        },
         500
       );
     }
 
-    const teams = await teamResponse.json();
+
+    const teams =
+      await teamResponse.json();
+
 
     if (!teams.length) {
       return jsonResponse(
-        { error: "Team not found." },
+        {
+          error:
+            "Team not found."
+        },
         404
       );
     }
 
-    const team = teams[0];
+
+    const team =
+      teams[0];
 
 
-    // FIND PLAYER
+    /* =========================
+       FIND PLAYER
+    ========================= */
 
-    const playerResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/players?team_id=eq.${team.id}&player_key=eq.${encodeURIComponent(
-        playerKey
-      )}&select=id,player_key,player_name,player_number&limit=1`,
-      {
-        headers
-      }
-    );
+    const playerResponse =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/players?team_id=eq.${team.id}&player_key=eq.${encodeURIComponent(
+          playerKey
+        )}&select=id,player_key,player_name,player_number&limit=1`,
+        {
+          headers
+        }
+      );
+
 
     if (!playerResponse.ok) {
       console.error(
@@ -92,32 +131,46 @@ export async function onRequestGet(context) {
       );
 
       return jsonResponse(
-        { error: "Unable to load player." },
+        {
+          error:
+            "Unable to load player."
+        },
         500
       );
     }
 
+
     const players =
       await playerResponse.json();
 
+
     if (!players.length) {
       return jsonResponse(
-        { error: "Player not found." },
+        {
+          error:
+            "Player not found."
+        },
         404
       );
     }
 
-    const player = players[0];
+
+    const player =
+      players[0];
 
 
-    // LOAD SHARED TEAM BOARD
+    /* =========================
+       LOAD SHARED TEAM BOARD
+    ========================= */
 
-    const baseballResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/shared_baseballs?team_id=eq.${team.id}&select=id,ball_number,amount_cents,status,supported_player_id,sold_at&order=ball_number.asc`,
-      {
-        headers
-      }
-    );
+    const baseballResponse =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/shared_baseballs?team_id=eq.${team.id}&select=id,ball_number,amount_cents,status,supported_player_id,donor_name,sold_at,stripe_session_id&order=ball_number.asc`,
+        {
+          headers
+        }
+      );
+
 
     if (!baseballResponse.ok) {
       console.error(
@@ -134,59 +187,90 @@ export async function onRequestGet(context) {
       );
     }
 
+
     const baseballRows =
       await baseballResponse.json();
 
 
-    // NORMALIZE STATUSES
+    /* =========================
+       NORMALIZE STATUSES
+    ========================= */
 
     const baseballs =
-      baseballRows.map(ball => {
-        let displayStatus =
-          ball.status;
+      baseballRows.map(
+        ball => {
 
-        if (
-          displayStatus === "reserved"
-        ) {
-          displayStatus = "sold";
+          let displayStatus =
+            ball.status;
+
+
+          if (
+            displayStatus ===
+            "reserved"
+          ) {
+            displayStatus =
+              "sold";
+          }
+
+
+          return {
+            id:
+              ball.id,
+
+            ball_number:
+              ball.ball_number,
+
+            amount_cents:
+              ball.amount_cents,
+
+            status:
+              displayStatus,
+
+            supported_player_id:
+              ball.supported_player_id,
+
+            donor_name:
+              ball.donor_name ||
+              null,
+
+            sold_at:
+              ball.sold_at,
+
+            stripe_session_id:
+              ball.stripe_session_id
+          };
+
         }
-
-        return {
-          id: ball.id,
-          ball_number:
-            ball.ball_number,
-          amount_cents:
-            ball.amount_cents,
-          status:
-            displayStatus,
-          supported_player_id:
-            ball.supported_player_id,
-          sold_at:
-            ball.sold_at
-        };
-      });
+      );
 
 
-    // TOTALS
+    /* =========================
+       TOTALS
+    ========================= */
 
     const soldBalls =
       baseballRows.filter(
         ball =>
-          ball.status === "sold"
+          ball.status ===
+          "sold"
       );
+
 
     const raisedCents =
       soldBalls.reduce(
         (total, ball) =>
           total +
           Number(
-            ball.amount_cents || 0
+            ball.amount_cents ||
+            0
           ),
         0
       );
 
+
     const soldCount =
       soldBalls.length;
+
 
     const remainingCount =
       baseballRows.filter(
@@ -196,22 +280,33 @@ export async function onRequestGet(context) {
       ).length;
 
 
+    /* =========================
+       RESPONSE
+    ========================= */
+
     return jsonResponse(
       {
         team: {
-          id: team.id,
+          id:
+            team.id,
+
           team_name:
             team.team_name,
+
           team_key:
             team.team_key
         },
 
         player: {
-          id: player.id,
+          id:
+            player.id,
+
           player_key:
             player.player_key,
+
           player_name:
             player.player_name,
+
           player_number:
             player.player_number
         },
@@ -221,10 +316,13 @@ export async function onRequestGet(context) {
         totals: {
           raised_cents:
             raisedCents,
+
           sold_count:
             soldCount,
+
           remaining_count:
             remainingCount,
+
           goal_cents:
             505000
         }
@@ -233,10 +331,12 @@ export async function onRequestGet(context) {
     );
 
   } catch (error) {
+
     console.error(
       "Fundraiser API error:",
       error
     );
+
 
     return jsonResponse(
       {
@@ -253,14 +353,18 @@ function jsonResponse(
   data,
   status = 200
 ) {
+
   return new Response(
-    JSON.stringify(data),
+    JSON.stringify(
+      data
+    ),
     {
       status,
 
       headers: {
         "Content-Type":
           "application/json",
+
         "Cache-Control":
           "no-store"
       }
