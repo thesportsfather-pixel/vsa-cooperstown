@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>VSA Cooperstown Fundraiser</title>
 
@@ -22,6 +26,7 @@
       --muted: #a7a7a7;
 
       --green: #22c55e;
+      --danger: #ff5964;
 
       --ball: #f7f3e9;
       --ball-dark: #d5ccbc;
@@ -35,7 +40,12 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
       color: var(--white);
 
       background:
@@ -72,13 +82,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       gap: 16px;
+
       margin-bottom: 24px;
     }
 
     .back-link {
       color: var(--silver);
+
       text-decoration: none;
+
       font-weight: 700;
       font-size: 14px;
     }
@@ -94,12 +108,14 @@
 
     .hero {
       text-align: center;
+
       margin-bottom: 34px;
     }
 
     .hero-logo {
       width: min(210px, 56vw);
       height: auto;
+
       margin-bottom: 8px;
 
       filter:
@@ -111,45 +127,75 @@
 
     .team-label {
       color: var(--gold-light);
+
       font-size: 12px;
       font-weight: 900;
+
       letter-spacing: 0.22em;
+
       text-transform: uppercase;
     }
 
     .player-name {
       margin: 8px 0 4px;
-      font-size: clamp(36px, 7vw, 66px);
+
+      font-size:
+        clamp(
+          36px,
+          7vw,
+          66px
+        );
+
       font-weight: 1000;
+
       text-transform: uppercase;
     }
 
     .player-number {
       color: var(--gold);
-      font-size: clamp(24px, 4vw, 34px);
+
+      font-size:
+        clamp(
+          24px,
+          4vw,
+          34px
+        );
+
       font-weight: 1000;
     }
 
     .hero p {
       max-width: 720px;
+
       margin: 14px auto 0;
+
       color: var(--silver);
+
       font-size: 16px;
       line-height: 1.5;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+
+      grid-template-columns:
+        repeat(
+          3,
+          1fr
+        );
+
       gap: 16px;
+
       margin-bottom: 26px;
     }
 
     .stat {
       padding: 18px;
+
       text-align: center;
 
       border-radius: 16px;
+
       border:
         1px solid
         rgba(199, 146, 62, 0.30);
@@ -160,19 +206,25 @@
 
     .stat-value {
       color: var(--gold-light);
+
       font-size: 28px;
       font-weight: 1000;
     }
 
     .stat-label {
       margin-top: 5px;
+
       color: var(--muted);
+
       font-size: 12px;
+
       text-transform: uppercase;
+
       letter-spacing: 0.08em;
     }
 
-    .board-panel {
+    .board-panel,
+    .general-donation-panel {
       padding: 24px;
 
       border-radius: 20px;
@@ -195,6 +247,7 @@
 
     .board-heading {
       text-align: center;
+
       margin-bottom: 22px;
     }
 
@@ -215,27 +268,39 @@
 
     .board-heading p {
       margin: 8px 0 0;
+
       color: var(--muted);
+
       line-height: 1.5;
     }
 
     .baseball-grid {
       display: grid;
-      grid-template-columns: repeat(10, 1fr);
+
+      grid-template-columns:
+        repeat(
+          10,
+          1fr
+        );
+
       gap: 12px;
     }
 
     .ball {
       position: relative;
+
       width: 100%;
+
       aspect-ratio: 1 / 1;
 
       display: flex;
       flex-direction: column;
+
       align-items: center;
       justify-content: center;
 
       overflow: hidden;
+
       cursor: pointer;
 
       border-radius: 50%;
@@ -253,10 +318,15 @@
         );
 
       box-shadow:
-        inset -5px -6px 10px
+        inset
+        -5px
+        -6px
+        10px
         rgba(0, 0, 0, 0.12),
+
         0 7px 14px
         rgba(0, 0, 0, 0.30),
+
         0 0 0 2px
         rgba(199, 146, 62, 0.08);
 
@@ -274,6 +344,7 @@
 
       top: 10%;
       bottom: 10%;
+
       width: 31%;
 
       border:
@@ -304,12 +375,6 @@
         scale(1.04);
 
       border-color: var(--gold);
-
-      box-shadow:
-        0 10px 18px
-        rgba(0, 0, 0, 0.36),
-        0 0 0 4px
-        rgba(199, 146, 62, 0.20);
     }
 
     .ball.selected {
@@ -320,14 +385,31 @@
       box-shadow:
         0 0 0 4px
         rgba(199, 146, 62, 0.24),
+
         0 10px 20px
         rgba(0, 0, 0, 0.38);
     }
 
     .ball.sold {
       cursor: not-allowed;
-      opacity: 0.38;
-      filter: grayscale(1);
+
+      opacity: 1;
+
+      border-color:
+        rgba(255, 255, 255, 0.28);
+
+      background:
+        radial-gradient(
+          circle at 35% 25%,
+          #ded8ca 0%,
+          #c8c0b1 48%,
+          #9e9689 100%
+        );
+    }
+
+    .ball.sold::before,
+    .ball.sold::after {
+      border-color: #8d3239;
     }
 
     .ball-number {
@@ -352,16 +434,38 @@
       font-weight: 900;
     }
 
+    .donor-name {
+      position: relative;
+      z-index: 3;
+
+      width: 82%;
+
+      margin-top: 3px;
+
+      color: #4b3218;
+
+      text-align: center;
+
+      font-size:
+        clamp(
+          7px,
+          0.75vw,
+          10px
+        );
+
+      font-weight: 1000;
+
+      line-height: 1.05;
+
+      overflow-wrap: anywhere;
+    }
+
     .checkout-panel {
-      position: static;
+      display: block;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 18px;
       margin-top: 30px;
-      padding: 18px 20px;
+
+      padding: 20px;
 
       border-radius: 18px;
 
@@ -381,23 +485,158 @@
         rgba(0, 0, 0, 0.34);
     }
 
-    .selection-info {
+    .panel-title {
+      margin: 0 0 8px;
+
+      text-align: center;
+
+      color: var(--gold-light);
+
+      font-size: 22px;
+
+      font-weight: 1000;
+
+      text-transform: uppercase;
+    }
+
+    .panel-description {
+      max-width: 620px;
+
+      margin:
+        0
+        auto
+        18px;
+
+      text-align: center;
+
       color: var(--silver);
+
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .field {
+      max-width: 620px;
+
+      margin:
+        0
+        auto
+        14px;
+    }
+
+    .field label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: white;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+    .field input {
+      width: 100%;
+
+      padding: 14px 15px;
+
+      border:
+        2px solid
+        rgba(255, 255, 255, 0.15);
+
+      border-radius: 12px;
+
+      background: #111111;
+
+      color: white;
+
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: var(--gold);
+    }
+
+    .field input:disabled {
+      opacity: 0.5;
+
+      cursor: not-allowed;
+    }
+
+    .anonymous-option {
+      display: flex;
+
+      max-width: 620px;
+
+      margin:
+        8px
+        auto
+        18px;
+
+      padding: 12px 14px;
+
+      align-items: center;
+
+      gap: 10px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255, 255, 255, 0.05);
+
+      cursor: pointer;
+    }
+
+    .anonymous-option input {
+      width: 20px;
+      height: 20px;
+
+      accent-color: var(--gold);
+    }
+
+    .anonymous-option span {
+      color: var(--silver);
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .selection-info {
+      margin-bottom: 14px;
+
+      text-align: center;
+
+      color: var(--silver);
+
       font-size: 14px;
     }
 
     .selection-info strong {
       display: block;
-      margin-top: 3px;
+
+      margin-top: 4px;
+
       color: var(--white);
+
       font-size: 20px;
     }
 
-    .checkout-button {
-      min-width: 190px;
+    .checkout-button,
+    .general-donation-button {
+      display: block;
+
+      width: min(620px, 100%);
+
+      margin: 0 auto;
+
       padding: 14px 18px;
 
       border: 0;
+
       border-radius: 12px;
 
       cursor: pointer;
@@ -421,32 +660,30 @@
         rgba(0, 0, 0, 0.28);
     }
 
-    .checkout-button:hover {
-      background:
-        linear-gradient(
-          180deg,
-          #f0c575,
-          #d09a42
-        );
-    }
-
-    .checkout-button:disabled {
+    .checkout-button:disabled,
+    .general-donation-button:disabled {
       cursor: not-allowed;
+
       opacity: 0.45;
     }
 
-    .message {
+    .message,
+    .general-status {
       display: none;
+
       margin: 20px 0;
+
       padding: 14px 16px;
 
       border-radius: 12px;
 
       text-align: center;
+
       font-weight: 700;
     }
 
-    .message.error {
+    .message.error,
+    .general-status.error {
       display: block;
 
       background:
@@ -459,7 +696,8 @@
       color: var(--gold-light);
     }
 
-    .message.success {
+    .message.success,
+    .general-status.success {
       display: block;
 
       background:
@@ -474,11 +712,45 @@
 
     .loading {
       text-align: center;
+
       padding: 50px 0;
 
       color: var(--silver);
 
       font-size: 18px;
+    }
+
+    .divider {
+      max-width: 900px;
+
+      height: 1px;
+
+      margin: 48px auto;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+    }
+
+    .general-donation-panel {
+      max-width: 760px;
+
+      margin: 0 auto;
+    }
+
+    .general-note {
+      margin-top: 12px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     footer {
@@ -499,28 +771,25 @@
     @media (max-width: 1000px) {
       .baseball-grid {
         grid-template-columns:
-          repeat(8, 1fr);
+          repeat(
+            8,
+            1fr
+          );
       }
     }
 
     @media (max-width: 780px) {
       .baseball-grid {
         grid-template-columns:
-          repeat(5, 1fr);
+          repeat(
+            5,
+            1fr
+          );
       }
 
       .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .checkout-panel {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-
-      .checkout-button {
-        width: 100%;
+        grid-template-columns:
+          1fr;
       }
     }
 
@@ -530,12 +799,17 @@
       }
 
       .board-panel {
-        padding: 16px 10px;
+        padding:
+          16px
+          10px;
       }
 
       .baseball-grid {
         grid-template-columns:
-          repeat(4, 1fr);
+          repeat(
+            4,
+            1fr
+          );
 
         gap: 8px;
       }
@@ -546,6 +820,17 @@
 
       .ball-price {
         font-size: 9px;
+      }
+
+      .donor-name {
+        font-size: 7px;
+      }
+
+      .checkout-panel,
+      .general-donation-panel {
+        padding:
+          18px
+          14px;
       }
     }
   </style>
@@ -672,7 +957,8 @@
         </h2>
 
         <p>
-          Ball #1 = $1, Ball #2 = $2, all the way through Ball #100 = $100.
+          Ball #1 = $1, Ball #2 = $2,
+          all the way through Ball #100 = $100.
         </p>
 
       </div>
@@ -699,6 +985,47 @@
         style="display: none;"
       >
 
+        <h3 class="panel-title">
+          Complete Your Baseball Donation
+        </h3>
+
+        <p class="panel-description">
+          Enter the donor name you would like displayed
+          inside the purchased baseballs.
+        </p>
+
+
+        <div class="field">
+
+          <label for="donorName">
+            Donor Name
+          </label>
+
+          <input
+            id="donorName"
+            type="text"
+            maxlength="50"
+            autocomplete="name"
+            placeholder="Example: Grandma & Grandpa"
+          />
+
+        </div>
+
+
+        <label class="anonymous-option">
+
+          <input
+            id="anonymousCheckbox"
+            type="checkbox"
+          />
+
+          <span>
+            Remain Anonymous
+          </span>
+
+        </label>
+
+
         <div class="selection-info">
 
           Selected Baseballs
@@ -723,6 +1050,94 @@
     </section>
 
 
+    <div class="divider"></div>
+
+
+    <section class="general-donation-panel">
+
+      <h3 class="panel-title">
+        General Team Donation
+      </h3>
+
+      <p class="panel-description">
+        Want to support the entire VSA Boca team without
+        selecting a player or baseball? Enter any custom
+        donation amount below.
+      </p>
+
+
+      <div class="field">
+
+        <label for="generalAmount">
+          Donation Amount
+        </label>
+
+        <input
+          id="generalAmount"
+          type="number"
+          min="1"
+          step="0.01"
+          inputmode="decimal"
+          placeholder="100.00"
+        />
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="generalDonorName">
+          Donor Name
+        </label>
+
+        <input
+          id="generalDonorName"
+          type="text"
+          maxlength="50"
+          autocomplete="name"
+          placeholder="Example: The Smith Family"
+        />
+
+      </div>
+
+
+      <label class="anonymous-option">
+
+        <input
+          id="generalAnonymousCheckbox"
+          type="checkbox"
+        />
+
+        <span>
+          Remain Anonymous
+        </span>
+
+      </label>
+
+
+      <button
+        id="generalDonationButton"
+        class="general-donation-button"
+        type="button"
+      >
+        Donate to VSA
+      </button>
+
+
+      <div
+        id="generalDonationStatus"
+        class="general-status"
+      ></div>
+
+
+      <div class="general-note">
+        General donations support the VSA Boca team
+        and do not purchase or reserve a baseball.
+      </div>
+
+    </section>
+
+
     <footer>
 
       <strong>
@@ -739,70 +1154,86 @@
 
 
   <script>
-    const TEAM_KEY = "vsa-cooperstown";
 
     const params =
       new URLSearchParams(
         window.location.search
       );
 
+
     const playerKey =
-      params.get("player");
+      params.get(
+        "player"
+      );
+
 
     const selectedBalls =
       new Set();
 
-    let baseballs = [];
+
+    let baseballs =
+      [];
+
 
     const playerNameElement =
       document.getElementById(
         "playerName"
       );
 
+
     const playerNumberElement =
       document.getElementById(
         "playerNumber"
       );
+
 
     const baseballGrid =
       document.getElementById(
         "baseballGrid"
       );
 
+
     const loading =
       document.getElementById(
         "loading"
       );
+
 
     const checkoutPanel =
       document.getElementById(
         "checkoutPanel"
       );
 
+
     const checkoutButton =
       document.getElementById(
         "checkoutButton"
       );
+
 
     const selectionSummary =
       document.getElementById(
         "selectionSummary"
       );
 
+
     const raisedAmount =
       document.getElementById(
         "raisedAmount"
       );
+
 
     const soldCount =
       document.getElementById(
         "soldCount"
       );
 
+
     const remainingCount =
       document.getElementById(
         "remainingCount"
       );
+
 
     const message =
       document.getElementById(
@@ -810,30 +1241,159 @@
       );
 
 
+    const donorName =
+      document.getElementById(
+        "donorName"
+      );
+
+
+    const anonymousCheckbox =
+      document.getElementById(
+        "anonymousCheckbox"
+      );
+
+
+    const generalAmount =
+      document.getElementById(
+        "generalAmount"
+      );
+
+
+    const generalDonorName =
+      document.getElementById(
+        "generalDonorName"
+      );
+
+
+    const generalAnonymousCheckbox =
+      document.getElementById(
+        "generalAnonymousCheckbox"
+      );
+
+
+    const generalDonationButton =
+      document.getElementById(
+        "generalDonationButton"
+      );
+
+
+    const generalDonationStatus =
+      document.getElementById(
+        "generalDonationStatus"
+      );
+
+
     function showMessage(
       text,
       type = "error"
     ) {
-      message.textContent = text;
+
+      message.textContent =
+        text;
+
       message.className =
         "message " + type;
+
+    }
+
+
+    function showGeneralStatus(
+      text,
+      type
+    ) {
+
+      generalDonationStatus.textContent =
+        text;
+
+      generalDonationStatus.className =
+        "general-status " + type;
+
     }
 
 
     function formatMoney(
       cents
     ) {
+
       return new Intl.NumberFormat(
         "en-US",
         {
-          style: "currency",
-          currency: "USD",
-          maximumFractionDigits: 0
+          style:
+            "currency",
+
+          currency:
+            "USD",
+
+          maximumFractionDigits:
+            0
         }
       ).format(
         cents / 100
       );
+
     }
+
+
+    anonymousCheckbox.addEventListener(
+      "change",
+      () => {
+
+        if (
+          anonymousCheckbox.checked
+        ) {
+
+          donorName.value =
+            "";
+
+          donorName.disabled =
+            true;
+
+          donorName.placeholder =
+            "Anonymous donation";
+
+        } else {
+
+          donorName.disabled =
+            false;
+
+          donorName.placeholder =
+            "Example: Grandma & Grandpa";
+
+        }
+
+      }
+    );
+
+
+    generalAnonymousCheckbox.addEventListener(
+      "change",
+      () => {
+
+        if (
+          generalAnonymousCheckbox.checked
+        ) {
+
+          generalDonorName.value =
+            "";
+
+          generalDonorName.disabled =
+            true;
+
+          generalDonorName.placeholder =
+            "Anonymous donation";
+
+        } else {
+
+          generalDonorName.disabled =
+            false;
+
+          generalDonorName.placeholder =
+            "Example: The Smith Family";
+
+        }
+
+      }
+    );
 
 
     function updateSelection() {
@@ -842,7 +1402,8 @@
         Array.from(
           selectedBalls
         ).sort(
-          (a, b) => a - b
+          (a, b) =>
+            a - b
         );
 
 
@@ -860,10 +1421,12 @@
           "Continue to Checkout";
 
         return;
+
       }
 
 
-      let total = 0;
+      let total =
+        0;
 
 
       selectedArray.forEach(
@@ -876,9 +1439,15 @@
                 number
             );
 
+
           if (ball) {
+
             total +=
-              ball.amount_cents;
+              Number(
+                ball.amount_cents ||
+                0
+              );
+
           }
 
         }
@@ -906,6 +1475,7 @@
         "Checkout "
         +
         formatMoney(total);
+
     }
 
 
@@ -941,13 +1511,16 @@
 
 
       renderBoard();
+
       updateSelection();
+
     }
 
 
     function renderBoard() {
 
-      baseballGrid.innerHTML = "";
+      baseballGrid.innerHTML =
+        "";
 
 
       baseballs.forEach(
@@ -981,17 +1554,24 @@
           }
 
 
-          button.innerHTML = `
-            <div class="ball-number">
-              #${ball.ball_number}
-            </div>
+          const number =
+            document.createElement(
+              "div"
+            );
 
-            <div class="ball-price">
-              ${formatMoney(
-                ball.amount_cents
-              )}
-            </div>
-          `;
+
+          number.className =
+            "ball-number";
+
+
+          number.textContent =
+            "#" +
+            ball.ball_number;
+
+
+          button.appendChild(
+            number
+          );
 
 
           if (
@@ -999,18 +1579,75 @@
             "sold"
           ) {
 
+            const donor =
+              document.createElement(
+                "div"
+              );
+
+
+            donor.className =
+              "donor-name";
+
+
+            const displayName =
+              ball.donor_name &&
+              String(
+                ball.donor_name
+              ).trim()
+                ? ball.donor_name
+                : "Anonymous";
+
+
+            donor.textContent =
+              displayName;
+
+
+            donor.title =
+              displayName;
+
+
+            button.appendChild(
+              donor
+            );
+
+
             button.disabled =
               true;
 
+
             button.title =
-              "Already sold";
+              "Purchased by " +
+              displayName;
 
           } else {
+
+            const price =
+              document.createElement(
+                "div"
+              );
+
+
+            price.className =
+              "ball-price";
+
+
+            price.textContent =
+              formatMoney(
+                ball.amount_cents
+              );
+
+
+            button.appendChild(
+              price
+            );
+
 
             button.addEventListener(
               "click",
               () =>
-                toggleBall(ball)
+                toggleBall(
+                  ball
+                )
             );
 
           }
@@ -1034,10 +1671,13 @@
           "No player was selected."
         );
 
+
         loading.textContent =
           "Please return to the team page and choose a player.";
 
+
         return;
+
       }
 
 
@@ -1049,7 +1689,11 @@
             +
             encodeURIComponent(
               playerKey
-            )
+            ),
+            {
+              cache:
+                "no-store"
+            }
           );
 
 
@@ -1078,7 +1722,8 @@
 
 
         baseballs =
-          data.baseballs || [];
+          data.baseballs ||
+          [];
 
 
         raisedAmount.textContent =
@@ -1107,18 +1752,23 @@
 
 
         checkoutPanel.style.display =
-          "flex";
+          "block";
 
 
         renderBoard();
+
         updateSelection();
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
+
 
         loading.style.display =
           "none";
+
 
         showMessage(
           error.message ||
@@ -1126,6 +1776,7 @@
         );
 
       }
+
     }
 
 
@@ -1134,9 +1785,50 @@
       async () => {
 
         if (
-          selectedBalls.size === 0
+          selectedBalls.size ===
+          0
         ) {
           return;
+        }
+
+
+        let finalDonorName;
+
+
+        if (
+          anonymousCheckbox.checked
+        ) {
+
+          finalDonorName =
+            "Anonymous";
+
+        } else {
+
+          finalDonorName =
+            donorName
+              .value
+              .trim()
+              .replace(
+                /\s+/g,
+                " "
+              );
+
+
+          if (
+            !finalDonorName
+          ) {
+
+            showMessage(
+              "Please enter a donor name or select Remain Anonymous."
+            );
+
+
+            donorName.focus();
+
+            return;
+
+          }
+
         }
 
 
@@ -1154,23 +1846,48 @@
             await fetch(
               "/api/create-checkout",
               {
-                method: "POST",
+                method:
+                  "POST",
 
                 headers: {
                   "Content-Type":
                     "application/json"
                 },
 
-                body: JSON.stringify({
-                  player: playerKey,
+                body:
+                  JSON.stringify({
+                    player:
+                      playerKey,
 
-                  baseball_numbers:
-                    Array.from(
-                      selectedBalls
-                    )
-                })
+                    baseball_numbers:
+                      Array.from(
+                        selectedBalls
+                      ),
+
+                    donorName:
+                      finalDonorName
+                  })
               }
             );
+
+
+          const contentType =
+            response.headers.get(
+              "content-type"
+            ) || "";
+
+
+          if (
+            !contentType.includes(
+              "application/json"
+            )
+          ) {
+
+            throw new Error(
+              "Checkout returned an unexpected response."
+            );
+
+          }
 
 
           const data =
@@ -1199,17 +1916,23 @@
           window.location.href =
             data.url;
 
+
         } catch (error) {
 
-          console.error(error);
+          console.error(
+            error
+          );
+
 
           showMessage(
             error.message ||
             "Unable to start checkout."
           );
 
+
           checkoutButton.disabled =
             false;
+
 
           updateSelection();
 
@@ -1219,7 +1942,191 @@
     );
 
 
+    generalDonationButton.addEventListener(
+      "click",
+      async () => {
+
+        const amount =
+          Number(
+            generalAmount.value
+          );
+
+
+        let finalDonorName;
+
+
+        if (
+          generalAnonymousCheckbox.checked
+        ) {
+
+          finalDonorName =
+            "Anonymous";
+
+        } else {
+
+          finalDonorName =
+            generalDonorName
+              .value
+              .trim()
+              .replace(
+                /\s+/g,
+                " "
+              );
+
+
+          if (
+            !finalDonorName
+          ) {
+
+            showGeneralStatus(
+              "Please enter a donor name or select Remain Anonymous.",
+              "error"
+            );
+
+
+            generalDonorName.focus();
+
+            return;
+
+          }
+
+        }
+
+
+        if (
+          !Number.isFinite(
+            amount
+          ) ||
+          amount < 1
+        ) {
+
+          showGeneralStatus(
+            "Please enter a donation amount of at least $1.",
+            "error"
+          );
+
+
+          generalAmount.focus();
+
+          return;
+
+        }
+
+
+        generalDonationButton.disabled =
+          true;
+
+
+        generalDonationButton.textContent =
+          "Creating Checkout...";
+
+
+        showGeneralStatus(
+          "Preparing secure checkout...",
+          "success"
+        );
+
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/create-general-donation",
+              {
+                method:
+                  "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                  JSON.stringify({
+                    amount,
+
+                    donorName:
+                      finalDonorName
+                  })
+              }
+            );
+
+
+          const contentType =
+            response.headers.get(
+              "content-type"
+            ) || "";
+
+
+          if (
+            !contentType.includes(
+              "application/json"
+            )
+          ) {
+
+            throw new Error(
+              "General donation checkout returned an unexpected response."
+            );
+
+          }
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.error ||
+              "Unable to create donation checkout."
+            );
+
+          }
+
+
+          if (!data.url) {
+
+            throw new Error(
+              "Checkout URL was not returned."
+            );
+
+          }
+
+
+          window.location.href =
+            data.url;
+
+
+        } catch (error) {
+
+          console.error(
+            error
+          );
+
+
+          showGeneralStatus(
+            error.message ||
+            "General donation checkout is unavailable.",
+            "error"
+          );
+
+
+          generalDonationButton.disabled =
+            false;
+
+
+          generalDonationButton.textContent =
+            "Donate to VSA";
+
+        }
+
+      }
+    );
+
+
     loadFundraiser();
+
   </script>
 
 </body>
