@@ -3,42 +3,101 @@ export async function onRequestPost(context) {
 
   try {
     const SUPABASE_URL = env.SUPABASE_URL;
-    const SUPABASE_SERVICE_ROLE_KEY = env.SUPABASE_SERVICE_ROLE_KEY;
-    const STRIPE_SECRET_KEY = env.STRIPE_SECRET_KEY;
-    const TEAM_KEY = env.TEAM_KEY || "vsa-cooperstown";
+    const SUPABASE_SERVICE_ROLE_KEY =
+      env.SUPABASE_SERVICE_ROLE_KEY;
+    const STRIPE_SECRET_KEY =
+      env.STRIPE_SECRET_KEY;
+    const TEAM_KEY =
+      env.TEAM_KEY || "vsa-cooperstown";
 
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    if (
+      !SUPABASE_URL ||
+      !SUPABASE_SERVICE_ROLE_KEY
+    ) {
       return jsonResponse(
-        { error: "Supabase environment variables are missing." },
+        {
+          error:
+            "Supabase environment variables are missing."
+        },
         500
       );
     }
 
     if (!STRIPE_SECRET_KEY) {
       return jsonResponse(
-        { error: "Stripe is not configured yet." },
+        {
+          error:
+            "Stripe is not configured yet."
+        },
         500
       );
     }
 
-    const body = await request.json();
+    const body =
+      await request.json();
 
-    const playerKey = body.player;
+    const playerKey =
+      body.player ||
+      body.playerKey;
 
-    const baseballNumbers = Array.isArray(body.baseball_numbers)
-      ? body.baseball_numbers
-      : [];
+    const baseballNumbers =
+      Array.isArray(
+        body.baseball_numbers
+      )
+        ? body.baseball_numbers
+        : Array.isArray(body.baseballs)
+          ? body.baseballs
+          : [];
+
+    const donorName =
+      String(
+        body.donorName ||
+        body.donor_name ||
+        ""
+      )
+        .trim()
+        .replace(/\s+/g, " ");
 
     if (!playerKey) {
       return jsonResponse(
-        { error: "Missing player." },
+        {
+          error:
+            "Missing player."
+        },
         400
       );
     }
 
-    if (baseballNumbers.length === 0) {
+    if (!donorName) {
       return jsonResponse(
-        { error: "Select at least one baseball." },
+        {
+          error:
+            "Please enter a donor name or choose Anonymous."
+        },
+        400
+      );
+    }
+
+    if (
+      donorName.length > 50
+    ) {
+      return jsonResponse(
+        {
+          error:
+            "Donor name must be 50 characters or fewer."
+        },
+        400
+      );
+    }
+
+    if (
+      baseballNumbers.length === 0
+    ) {
+      return jsonResponse(
+        {
+          error:
+            "Select at least one baseball."
+        },
         400
       );
     }
@@ -47,7 +106,10 @@ export async function onRequestPost(context) {
       ...new Set(
         baseballNumbers.map(Number)
       )
-    ].sort((a, b) => a - b);
+    ].sort(
+      (a, b) =>
+        a - b
+    );
 
     if (
       uniqueNumbers.some(
@@ -58,15 +120,23 @@ export async function onRequestPost(context) {
       )
     ) {
       return jsonResponse(
-        { error: "Invalid baseball selection." },
+        {
+          error:
+            "Invalid baseball selection."
+        },
         400
       );
     }
 
     const supabaseHeaders = {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      "Content-Type": "application/json"
+      apikey:
+        SUPABASE_SERVICE_ROLE_KEY,
+
+      Authorization:
+        `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+
+      "Content-Type":
+        "application/json"
     };
 
 
@@ -74,14 +144,16 @@ export async function onRequestPost(context) {
        FIND TEAM
     ========================= */
 
-    const teamResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/teams?team_key=eq.${encodeURIComponent(
-        TEAM_KEY
-      )}&select=id,team_name,team_key&limit=1`,
-      {
-        headers: supabaseHeaders
-      }
-    );
+    const teamResponse =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/teams?team_key=eq.${encodeURIComponent(
+          TEAM_KEY
+        )}&select=id,team_name,team_key&limit=1`,
+        {
+          headers:
+            supabaseHeaders
+        }
+      );
 
     if (!teamResponse.ok) {
       console.error(
@@ -90,35 +162,45 @@ export async function onRequestPost(context) {
       );
 
       return jsonResponse(
-        { error: "Unable to load team." },
+        {
+          error:
+            "Unable to load team."
+        },
         500
       );
     }
 
-    const teams = await teamResponse.json();
+    const teams =
+      await teamResponse.json();
 
     if (!teams.length) {
       return jsonResponse(
-        { error: "Team not found." },
+        {
+          error:
+            "Team not found."
+        },
         404
       );
     }
 
-    const team = teams[0];
+    const team =
+      teams[0];
 
 
     /* =========================
        FIND PLAYER
     ========================= */
 
-    const playerResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/players?team_id=eq.${team.id}&player_key=eq.${encodeURIComponent(
-        playerKey
-      )}&select=id,player_key,player_name,player_number&limit=1`,
-      {
-        headers: supabaseHeaders
-      }
-    );
+    const playerResponse =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/players?team_id=eq.${team.id}&player_key=eq.${encodeURIComponent(
+          playerKey
+        )}&select=id,player_key,player_name,player_number&limit=1`,
+        {
+          headers:
+            supabaseHeaders
+        }
+      );
 
     if (!playerResponse.ok) {
       console.error(
@@ -127,21 +209,29 @@ export async function onRequestPost(context) {
       );
 
       return jsonResponse(
-        { error: "Unable to load player." },
+        {
+          error:
+            "Unable to load player."
+        },
         500
       );
     }
 
-    const players = await playerResponse.json();
+    const players =
+      await playerResponse.json();
 
     if (!players.length) {
       return jsonResponse(
-        { error: "Player not found." },
+        {
+          error:
+            "Player not found."
+        },
         404
       );
     }
 
-    const player = players[0];
+    const player =
+      players[0];
 
 
     /* =========================
@@ -151,12 +241,14 @@ export async function onRequestPost(context) {
     const ballFilter =
       uniqueNumbers.join(",");
 
-    const baseballResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/shared_baseballs?team_id=eq.${team.id}&ball_number=in.(${ballFilter})&select=id,ball_number,amount_cents,status`,
-      {
-        headers: supabaseHeaders
-      }
-    );
+    const baseballResponse =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/shared_baseballs?team_id=eq.${team.id}&ball_number=in.(${ballFilter})&select=id,ball_number,amount_cents,status`,
+        {
+          headers:
+            supabaseHeaders
+        }
+      );
 
     if (!baseballResponse.ok) {
       console.error(
@@ -165,25 +257,40 @@ export async function onRequestPost(context) {
       );
 
       return jsonResponse(
-        { error: "Unable to verify baseballs." },
+        {
+          error:
+            "Unable to verify baseballs."
+        },
         500
       );
     }
 
-    const baseballs = await baseballResponse.json();
+    const baseballs =
+      await baseballResponse.json();
 
-    if (baseballs.length !== uniqueNumbers.length) {
+    if (
+      baseballs.length !==
+      uniqueNumbers.length
+    ) {
       return jsonResponse(
-        { error: "One or more baseballs could not be found." },
+        {
+          error:
+            "One or more baseballs could not be found."
+        },
         400
       );
     }
 
-    const unavailableBalls = baseballs.filter(
-      ball => ball.status !== "available"
-    );
+    const unavailableBalls =
+      baseballs.filter(
+        ball =>
+          ball.status !==
+          "available"
+      );
 
-    if (unavailableBalls.length > 0) {
+    if (
+      unavailableBalls.length > 0
+    ) {
       return jsonResponse(
         {
           error:
@@ -198,15 +305,24 @@ export async function onRequestPost(context) {
        CALCULATE TOTAL
     ========================= */
 
-    const totalCents = baseballs.reduce(
-      (total, ball) =>
-        total + Number(ball.amount_cents || 0),
-      0
-    );
+    const totalCents =
+      baseballs.reduce(
+        (total, ball) =>
+          total +
+          Number(
+            ball.amount_cents || 0
+          ),
+        0
+      );
 
-    if (totalCents <= 0) {
+    if (
+      totalCents <= 0
+    ) {
       return jsonResponse(
-        { error: "Invalid checkout amount." },
+        {
+          error:
+            "Invalid checkout amount."
+        },
         400
       );
     }
@@ -216,9 +332,13 @@ export async function onRequestPost(context) {
        CREATE STRIPE SESSION
     ========================= */
 
-    const origin = new URL(request.url).origin;
+    const origin =
+      new URL(
+        request.url
+      ).origin;
 
-    const form = new URLSearchParams();
+    const form =
+      new URLSearchParams();
 
     form.append(
       "mode",
@@ -247,8 +367,11 @@ export async function onRequestPost(context) {
 
     form.append(
       "line_items[0][price_data][product_data][description]",
-      `Baseballs: ${uniqueNumbers
-        .map(number => `#${number}`)
+      `Donor: ${donorName} | Baseballs: ${uniqueNumbers
+        .map(
+          number =>
+            `#${number}`
+        )
         .join(", ")}`
     );
 
@@ -275,6 +398,11 @@ export async function onRequestPost(context) {
     /* =========================
        STRIPE METADATA
     ========================= */
+
+    form.append(
+      "metadata[donation_type]",
+      "baseballs"
+    );
 
     form.append(
       "metadata[team_key]",
@@ -306,23 +434,31 @@ export async function onRequestPost(context) {
       uniqueNumbers.join(",")
     );
 
-
-    const stripeResponse = await fetch(
-      "https://api.stripe.com/v1/checkout/sessions",
-      {
-        method: "POST",
-
-        headers: {
-          Authorization:
-            `Bearer ${STRIPE_SECRET_KEY}`,
-
-          "Content-Type":
-            "application/x-www-form-urlencoded"
-        },
-
-        body: form.toString()
-      }
+    form.append(
+      "metadata[donor_name]",
+      donorName
     );
+
+
+    const stripeResponse =
+      await fetch(
+        "https://api.stripe.com/v1/checkout/sessions",
+        {
+          method:
+            "POST",
+
+          headers: {
+            Authorization:
+              `Bearer ${STRIPE_SECRET_KEY}`,
+
+            "Content-Type":
+              "application/x-www-form-urlencoded"
+          },
+
+          body:
+            form.toString()
+        }
+      );
 
     const stripeData =
       await stripeResponse.json();
@@ -345,7 +481,8 @@ export async function onRequestPost(context) {
 
     return jsonResponse(
       {
-        url: stripeData.url
+        url:
+          stripeData.url
       },
       200
     );
@@ -358,7 +495,8 @@ export async function onRequestPost(context) {
 
     return jsonResponse(
       {
-        error: "Unexpected server error."
+        error:
+          "Unexpected server error."
       },
       500
     );
